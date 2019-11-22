@@ -1,6 +1,6 @@
 {
-  "name": "okra",
-  "version": "0.0.1",
+  "name": "okra-node",
+  "version": "0.0.16",
   "description": "Okra JS Node Module",
   "license": "MIT",
   "repository": "okraHQ/okra-node",
@@ -24,7 +24,7 @@
     "postdocs": "git add README.md",
     "clean": "rimraf dist",
     "flowbuild": "flow-copy-source src dist",
-    "prebuild": "npm run docs && npm run clean && npm run flowbuild",
+    "prebuild": "npm run clean && npm run flowbuild",
     "build": "babel src -d dist",
     "prerelease": "npm run lint && npm test && npm run build",
     "release": "standard-version",
@@ -44,7 +44,10 @@
   "keywords": [
     "generator-nod"
   ],
-  "dependencies": {},
+  "dependencies": {
+    "axios": "0.19.0",
+    "dotenv": "8.1.0"
+  },
   "devDependencies": {
     "@babel/cli": "7.4.4",
     "@babel/core": "7.4.5",
