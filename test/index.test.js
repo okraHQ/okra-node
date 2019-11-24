@@ -1,7 +1,9 @@
 import * as api from "../src";
 
-const token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZGMyZTU1MmM2NDNkODZlZDYyNGQ4YjEiLCJpYXQiOjE1NzQ2MDIxNDV9.kalMXY220arFY6YYiDrH5n4wqXDpfnLBIZog8YLDQxY";
+require("dotenv").config();
+
+const token = process.env.TEST_ACCESSTOKEN; // TO do - change to public token
+
 describe("Testing module", () => {
   test("that it is defined", () => {
     expect(api).toBeDefined();
