@@ -3,6 +3,7 @@ import * as api from "../src";
 require("dotenv").config();
 
 const token = process.env.TEST_ACCESSTOKEN; // TO do - change to public token
+const id = "5d6fe57a4099cc4b210bbeb6";
 
 describe("Testing module", () => {
   test("that it is defined", () => {
@@ -92,10 +93,22 @@ describe("Testing getBanks Api", () => {
 
 describe("Testing getBankById Api", () => {
   test("getBankById get response", async () => {
-    const id = "5d6fe57a4099cc4b210bbeb6";
     const response = await api.getBankById(id, () => {
       return true;
     });
+    expect(response).toBeTruthy();
+  });
+});
+
+describe("Testing getCustomers Api", () => {
+  test("getCustomers get response", async () => {
+    const response = await api.getCustomers(
+      token,
+      { page: 1, limit: 1 },
+      () => {
+        return true;
+      }
+    );
     expect(response).toBeTruthy();
   });
 });
