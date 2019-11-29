@@ -90,6 +90,7 @@ export const getBalances = function(
  * @param {string} token - AccessToken
  * @param {object} options - {page and limit}
  * @param {function} callback
+ * @returns {Function}
  */
 export const getIdentities = function(
   token: string,
@@ -116,6 +117,7 @@ export const getIdentities = function(
  * @param {string} token - AccessToken
  * @param {object} options - {page and limit}
  * @param {function} callback
+ * @returns {Function}
  */
 export const getRecords = function(
   token: string,
@@ -142,6 +144,7 @@ export const getRecords = function(
  * @param {string} token - AccessToken
  * @param {object} options - {page and limit}
  * @param {function} callback
+ * @returns {Function}
  */
 export const getAccounts = function(
   token: string,
@@ -231,6 +234,33 @@ export const getBankById = function(
   });
 };
 
+/**
+ *
+ * @param {string} token - AccessToken
+ * @param {Object} options - {page and limit}
+ * @param {Function} callback
+ * @returns {Function}
+ */
+export const getCustomers = function(
+  token: string,
+  options: { page: number, limit: number } | {},
+  callback: (error: string | null, result: any) => mixed
+) {
+  const url = `${apiURL}users/customers/get`;
+  const request = axios({
+    method: "POST",
+    url,
+    data: options,
+    headers: { Authorization: `Bearer ${token}` }
+  });
+  return request.then(response => {
+    if (response.data.status === "success") {
+      return callback(null, response.data.data);
+    }
+    return callback(response.data.message, null);
+  });
+};
+
 export default {
   getAuth,
   getTransactions,
@@ -238,11 +268,11 @@ export default {
   getBalances,
   // getBalanceById,
   getIdentities,
-  // getIdentity,
+  // getIdentityById,
   getRecords,
   // getRecordById,
   getAccounts,
-  // getCustomers,
+  getCustomers,
   // getCustomerById,
   getProducts,
   // getProductById,
