@@ -1,7 +1,8 @@
 // @flow
 import axios from "axios";
+import config from "./config";
 
-const apiURL = "https://dev-api.okra.ng/v1/";
+const { apiURL } = config;
 
 /**
  * getAuth - endpoint then allows to retrieve the bank account and
@@ -24,7 +25,7 @@ export const getAuth = function(
   });
   return request.then(response => {
     if (response.data.status === "success") {
-      return callback(null, response.data.data.auths);
+      return callback(null, response.data.data);
     }
     return callback(response.data.msg, null);
   });
@@ -51,7 +52,7 @@ export const getTransactions = function(
   });
   return request.then(response => {
     if (response.data.status === "success") {
-      return callback(null, response.data.data.trans);
+      return callback(null, response.data.data);
     }
     return callback(response.data.msg, null);
   });
@@ -63,7 +64,7 @@ export const getTransactions = function(
  * @param {object} options - {page and limit}
  * @param {function} callback
  */
-export const getBalance = function(
+export const getBalances = function(
   token: string,
   options: { page: number, limit: number } | {},
   callback: (error: string | null, result: any) => mixed
@@ -77,7 +78,7 @@ export const getBalance = function(
   });
   return request.then(response => {
     if (response.data.status === "success") {
-      return callback(null, response.data.data.balances);
+      return callback(null, response.data.data);
     }
     return callback(response.data.msg, null);
   });
@@ -90,7 +91,7 @@ export const getBalance = function(
  * @param {object} options - {page and limit}
  * @param {function} callback
  */
-export const getIdentity = function(
+export const getIdentities = function(
   token: string,
   options: { page: number, limit: number } | {},
   callback: (error: string | null, result: any) => mixed
@@ -104,7 +105,7 @@ export const getIdentity = function(
   });
   return request.then(response => {
     if (response.data.status === "success") {
-      return callback(null, response.data.data.identities);
+      return callback(null, response.data.data);
     }
     return callback(response.data.msg, null);
   });
@@ -130,7 +131,7 @@ export const getRecords = function(
   });
   return request.then(response => {
     if (response.data.status === "success") {
-      return callback(null, response.data.data.records);
+      return callback(null, response.data.data);
     }
     return callback(response.data.msg, null);
   });
@@ -142,7 +143,7 @@ export const getRecords = function(
  * @param {object} options - {page and limit}
  * @param {function} callback
  */
-export const getAccount = function(
+export const getAccounts = function(
   token: string,
   options: { page: number, limit: number } | {},
   callback: (error: string | null, result: any) => mixed
@@ -156,7 +157,7 @@ export const getAccount = function(
   });
   return request.then(response => {
     if (response.data.status === "success") {
-      return callback(null, response.data.data.accounts);
+      return callback(null, response.data.data);
     }
     return callback(response.data.msg, null);
   });
@@ -165,8 +166,9 @@ export const getAccount = function(
 /**
  * getProduct - retrieves the list of products available on an account
  * @param {string} token - AccessToken
- * @param {object} options - {page and limit}
- * @param {function} callback
+ * @param {Object} options - {page and limit}
+ * @param {Function} callback
+ * @returns {Function}
  */
 export const getProducts = function(
   token: string,
@@ -182,18 +184,68 @@ export const getProducts = function(
   });
   return request.then(response => {
     if (response.data.status === "success") {
-      return callback(null, response.data.data.products);
+      return callback(null, response.data.data);
     }
     return callback(response.data.msg, null);
+  });
+};
+
+/**
+ * getBanks - retrieves the list of banks available
+ */
+export const getBanks = function(
+  callback: (error: string | null, result: any) => mixed
+) {
+  const url = `${apiURL}banks/list`;
+  const request = axios({
+    method: "GET",
+    url
+  });
+  return request.then(response => {
+    if (response.data.status === "success") {
+      return callback(null, response.data.data);
+    }
+    return callback(response.data.message, null);
+  });
+};
+
+/**
+ * Getting each Bank details by id
+ * @param {string} id
+ * @returns {Function}
+ */
+export const getBankById = function(
+  id: string,
+  callback: (error: string | null, result: any) => mixed
+) {
+  const url = `${apiURL}banks/getById?id=${id}`;
+  const request = axios({
+    method: "GET",
+    url
+  });
+  return request.then(response => {
+    if (response.data.status === "success") {
+      return callback(null, response.data.data);
+    }
+    return callback(response.data.message, null);
   });
 };
 
 export default {
   getAuth,
   getTransactions,
-  getBalance,
-  getIdentity,
+  // getTransactionById,
+  getBalances,
+  // getBalanceById,
+  getIdentities,
+  // getIdentity,
   getRecords,
-  getAccount,
-  getProducts
+  // getRecordById,
+  getAccounts,
+  // getCustomers,
+  // getCustomerById,
+  getProducts,
+  // getProductById,
+  getBanks,
+  getBankById
 };
