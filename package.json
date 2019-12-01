@@ -1,6 +1,6 @@
 {
   "name": "okra-node",
-  "version": "0.0.16",
+  "version": "0.1.0",
   "description": "Okra JS Node Module",
   "license": "MIT",
   "repository": "okraHQ/okra-node",
