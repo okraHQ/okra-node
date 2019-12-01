@@ -221,7 +221,7 @@ export const getBankById = function(
   id: string,
   callback: (error: string | null, result: any) => mixed
 ) {
-  const url = `${apiURL}banks/getById?id=${id}`;
+  const url = `${apiURL}banks/getById?id="${id}"`;
   const request = axios({
     method: "GET",
     url
