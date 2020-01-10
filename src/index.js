@@ -16,7 +16,7 @@ export const getAuth = function(
   options: { page: number, limit: number } | {},
   callback: (error: string | null, result: any) => mixed
 ) {
-  const url = `${apiURL}products/auth/get`;
+  const url = `${apiURL}products/auths`;
   const request = axios({
     method: "POST",
     url,
@@ -43,7 +43,7 @@ export const getTransactions = function(
   options: { page: number, limit: number } | {},
   callback: (error: string | null, result: any) => mixed
 ) {
-  const url = `${apiURL}products/transactions/get`;
+  const url = `${apiURL}products/transactions`;
   const request = axios({
     method: "POST",
     url,
@@ -69,7 +69,7 @@ export const getBalances = function(
   options: { page: number, limit: number } | {},
   callback: (error: string | null, result: any) => mixed
 ) {
-  const url = `${apiURL}products/balance/get`;
+  const url = `${apiURL}products/balances`;
   const request = axios({
     method: "POST",
     url,
@@ -97,7 +97,7 @@ export const getIdentities = function(
   options: { page: number, limit: number } | {},
   callback: (error: string | null, result: any) => mixed
 ) {
-  const url = `${apiURL}products/identity/get`;
+  const url = `${apiURL}products/identities`;
   const request = axios({
     method: "POST",
     url,
@@ -124,7 +124,7 @@ export const getRecords = function(
   options: { page: number, limit: number } | {},
   callback: (error: string | null, result: any) => mixed
 ) {
-  const url = `${apiURL}products/records/get`;
+  const url = `${apiURL}products/records`;
   const request = axios({
     method: "POST",
     url,
@@ -151,7 +151,7 @@ export const getAccounts = function(
   options: { page: number, limit: number } | {},
   callback: (error: string | null, result: any) => mixed
 ) {
-  const url = `${apiURL}products/accounts/get`;
+  const url = `${apiURL}products/accounts`;
   const request = axios({
     method: "POST",
     url,
