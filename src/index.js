@@ -199,7 +199,7 @@ export const getProducts = function(
 export const getBanks = function(
   callback: (error: string | null, result: any) => mixed
 ) {
-  const url = `${apiURL}banks/list`;
+  const url = `${apiURL}banks`;
   const request = axios({
     method: "GET",
     url
@@ -246,7 +246,61 @@ export const getCustomers = function(
   options: { page: number, limit: number } | {},
   callback: (error: string | null, result: any) => mixed
 ) {
-  const url = `${apiURL}users/customers/get`;
+  const url = `${apiURL}users/customers`;
+  const request = axios({
+    method: "POST",
+    url,
+    data: options,
+    headers: { Authorization: `Bearer ${token}` }
+  });
+  return request.then(response => {
+    if (response.data.status === "success") {
+      return callback(null, response.data.data);
+    }
+    return callback(response.data.message, null);
+  });
+};
+
+/**
+ *
+ * @param {string} token - AccessToken
+ * @param {Object} options - {page and limit}
+ * @param {Function} callback
+ * @returns {Function}
+ */
+export const mergeIdentities = function(
+  token: string,
+  options: { final: string, initial: string, options: object } | {},
+  callback: (error: string | null, result: any) => mixed
+) {
+  const url = `${apiURL}products/identity/merge`;
+  const request = axios({
+    method: "POST",
+    url,
+    data: options,
+    headers: { Authorization: `Bearer ${token}` }
+  });
+  return request.then(response => {
+    if (response.data.status === "success") {
+      return callback(null, response.data.data);
+    }
+    return callback(response.data.message, null);
+  });
+};
+
+/**
+ *
+ * @param {string} token - AccessToken
+ * @param {Object} options - {page and limit}
+ * @param {Function} callback
+ * @returns {Function}
+ */
+export const retryRecord = function(
+  token: string,
+  options: {record_id: string, user: string} | {},
+  callback: (error: string | null, result: any) => mixed
+) {
+  const url = `${apiURL}customers/retry`;
   const request = axios({
     method: "POST",
     url,
@@ -277,5 +331,7 @@ export default {
   getProducts,
   // getProductById,
   getBanks,
-  getBankById
+  getBankById,
+  mergeIdentities,
+  retryRecord
 };
