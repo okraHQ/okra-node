@@ -221,7 +221,7 @@ export const getBankById = function(
   id: string,
   callback: (error: string | null, result: any) => mixed
 ) {
-  const url = `${apiURL}banks/getById?id="${id}"`;
+  const url = `${apiURL}banks/getById?id=${id}`;
   const request = axios({
     method: "GET",
     url
@@ -270,7 +270,7 @@ export const getCustomers = function(
  */
 export const mergeIdentities = function(
   token: string,
-  options: { final: string, initial: string, options: object } | {},
+  options: { final: string, initial: string, options: Object } | {},
   callback: (error: string | null, result: any) => mixed
 ) {
   const url = `${apiURL}products/identity/merge`;
@@ -282,7 +282,7 @@ export const mergeIdentities = function(
   });
   return request.then(response => {
     if (response.data.status === "success") {
-      return callback(null, response.data.data);
+      return callback(null, response.data);
     }
     return callback(response.data.message, null);
   });
@@ -297,7 +297,7 @@ export const mergeIdentities = function(
  */
 export const retryRecord = function(
   token: string,
-  options: {record_id: string, user: string} | {},
+  options: { record_id: string, user: string } | { record_id: string },
   callback: (error: string | null, result: any) => mixed
 ) {
   const url = `${apiURL}customers/retry`;
