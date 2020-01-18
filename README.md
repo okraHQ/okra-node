@@ -62,59 +62,83 @@ Okra node exposes a bunch of APIs that might be useful in your application.
     const records = results.records;
     });
   ```
+* **retryRecord**: this re-run a record
+  ```node
+    okra_client.retryRecord(accessToken, {record_id: string, user: string}, (err, results) => {
+	    // Handle err
+    });
+  ```
 * **getAccounts**: this returns all the accounts of customer associated to your company
   ```node
     okra_client.getAccounts(accessToken, {}, (err, results) => {
-	// Handle err
-    const records = results.accounts;
+	    // Handle err
+    const accounts = results.accounts;
     });
   ```
 * **getProducts**: this returns all the available products
   ```node
     okra_client.getProducts(accessToken, {}, (err, results) => {
-	// Handle err
-    const records = results.products;
+	    // Handle err
+    const product = results.products;
     });
   ```
 * **getBanks**: this returns the list of supported banks
   ```node
     okra_client.getBanks((err, results) => {
-	// Handle err
-    const records = results.banks;
+	    // Handle err
+    const banks = results.banks;
     });
   ```
 * **getBankById**: this returns a specific bank info
   ```node
     okra_client.getBankById(bankId,(err, results) => {
 	// Handle err
-    const records = results;
+    const bank = results;
     });
   ```
 * **getCustomers**: this returns an array of customers associated to your company
   ```node
     okra_client.getCustomers(accessToken, {},(err, results) => {
-	// Handle err
-    const records = results.customers;
+	    // Handle err
+    const customers = results.customers;
     });
   ```
+* **mergeIdentities**: Okra offers an api that helps to merge two identical identities into a single identity
+  ```node
+    okra_client.mergeIdentities(accessToken,
+      {
+          final:"5e1efaaa848182515cedd066",
+          initial:"5e20c13ed2356505c26f5a94",
+          options: {}
+      },
+      (err, results) => {
+        // Handle err
+      const mergeResult = results;
+      });
+  ```
+
+Field | Required | Description
+---|---|---
+**final**<br>`String` | yes | Id of identity to merge into.
+**initial**<br>`String` | yes | Id of identity moved from.
+**options**<br>`Object` | no | other identities information might want to effect.
+
+**Options Schema**
+
+Key | Description
+---|---
+**bvn**<br>`Number`| Bank Verification Number of the entity associated with this identity
+**nin**<br>`Number`| NIN of the entity associated with this identity
+**national_id**<br>`Number`| National Id of the entity associated with this identity
+**nims**<br>`String`| NIMs number of the entity associated with this identity
+**rc_number**<br>`String`| Company RC number of the entity associated with this identity
+**voters_id**<br>`String`| Voters Id of the entity associated with this identity
+**marital_status**<br>`String`| Marital Status of the entity associated with this identity
+**gender**<br>`String`| Gender of the entity associated with this identity
+**dob**<br>`Date`| Date of birth of the entity associated with this identity
+**mothers_maiden**<br>`String`| Mother's maiden name of the entity associated with this identity
 
 `accessToken` is a required string to access your account with us. You can find it as client token on the [setting page of the okra dashboard](https://dashboard.okra.ng/settings)
-
-### Paginated Results
-```node
-    okra_client.getRecords(accessToken, {page:1,limit:50}, (err, results) => {
-	// Handle err
-    const records = results.records;
-    console.log(records)
-    });
-  ```
-## Option
-
-|Name                   | Type           | Required            | Description         |
-|-----------------------|----------------|---------------------|---------------------|
-|  `page `      | `string`       | no                | The number page of data to fetch. | 
-|  `limit `               | `String`       | no                | The number of data to fetch per call, where limit >= 0.
-
 
 
 > For more information checkout [okra's documentation](https://docs.okra.ng)
