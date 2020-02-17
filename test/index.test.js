@@ -111,3 +111,16 @@ describe("Testing getCustomers Api", () => {
     expect(response).toBeTruthy();
   });
 });
+
+describe("Testing getTotalDebitCredit Api", () => {
+  test("getTotalDebitCredits get response", async () => {
+    const response = await api.getTotalDebitCredits(
+      token,
+      { account: id },
+      () => {
+        return true;
+      }
+    );
+    expect(response).toBeTruthy();
+  });
+});
