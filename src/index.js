@@ -315,6 +315,33 @@ export const retryRecord = function(
   });
 };
 
+/**
+ *
+ * @param {string} token - AccessToken
+ * @param {Object} options - {account}
+ * @param {Function} callback
+ * @returns {Function}
+ */
+export const getTotalDebitCredits = function(
+  token: string,
+  options: { account: string },
+  callback: (error: string | null, result: any) => mixed
+) {
+  const url = `${apiURL}products/total-debits-credits`;
+  const request = axios({
+    method: "POST",
+    url,
+    data: options,
+    headers: { Authorization: `Bearer ${token}` }
+  });
+  return request.then(response => {
+    if (response.data.status === "success") {
+      return callback(null, response.data.data);
+    }
+    return callback(response.data.message, null);
+  });
+};
+
 export default {
   getAuth,
   getTransactions,
@@ -333,5 +360,6 @@ export default {
   getBanks,
   getBankById,
   mergeIdentities,
-  retryRecord
+  retryRecord,
+  getTotalDebitCredits
 };
