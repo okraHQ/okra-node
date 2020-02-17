@@ -75,6 +75,17 @@ Okra node exposes a bunch of APIs that might be useful in your application.
     const accounts = results.accounts;
     });
   ```
+* **getTotalDebitCredits**: this returns the total credit and debits made on a customer account associated to your company.
+  ```node
+    okra_client.getTotalDebitCredits(accessToken, {account:"5e1efdsa842182515cedd066"}, (err, results) => {
+	    // Handle err
+    const total = results.result
+    });
+  ```
+Field | Required | Description
+---|---|---
+**account**<br>`String` | yes | Id of the said account.
+
 * **getProducts**: this returns all the available products
   ```node
     okra_client.getProducts(accessToken, {}, (err, results) => {
