@@ -246,7 +246,7 @@ export const getCustomers = function(
   options: { page: number, limit: number } | {},
   callback: (error: string | null, result: any) => mixed
 ) {
-  const url = `${apiURL}users/customers`;
+  const url = `${apiURL}customers/list`;
   const request = axios({
     method: "POST",
     url,
