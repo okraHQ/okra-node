@@ -93,6 +93,15 @@ Field | Required | Description
     const product = results.products;
     });
   ```
+
+* **getCustomerRecordByMethod**: this returns all the available products
+  ```node
+    okra_client.getCustomerRecordByMethod(accessToken, { record: 'record_id', method: 'okra_product' }, (err, results) => {
+	    // Handle err
+    const product = results['okra_product'];
+    });
+  ```
+
 * **getBanks**: this returns the list of supported banks
   ```node
     okra_client.getBanks((err, results) => {

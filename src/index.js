@@ -194,6 +194,32 @@ export const getProducts = function(
 };
 
 /**
+ * Retrieves either AUTH, BALANCE, TRANSACTIONS, IDENTITY, INCOME of a customer using their record Id.
+ * @param {string} token - AccessToken
+ * @param {object} options - {record - customer record id, method - one of the okra products}
+ * @param {function} callback
+ */
+export const getRecordByMethod = function(
+  token: string,
+  options: { record: string, method: string } | {},
+  callback: (error: string | null, result: any) => mixed
+) {
+  const url = `${apiURL}callback`;
+  const request = axios({
+    method: "GET",
+    url,
+    params: options,
+    headers: { Authorization: `Bearer ${token}` }
+  });
+  return request.then(response => {
+    if (response.data.status === "success") {
+      return callback(null, response.data.data);
+    }
+    return callback(response.data.msg, null);
+  });
+};
+
+/**
  * getBanks - retrieves the list of banks available
  */
 export const getBanks = function(
@@ -356,6 +382,7 @@ export default {
   getCustomers,
   // getCustomerById,
   getProducts,
+  getRecordByMethod,
   // getProductById,
   getBanks,
   getBankById,
