@@ -4,6 +4,8 @@ require("dotenv").config();
 
 const token = process.env.TEST_ACCESSTOKEN; // TO do - change to public token
 const id = "5d6fe57a4099cc4b210bbeb6";
+const record = "5e4ec820bbea150c6cde9362";
+
 beforeEach(async () => {
   jest.setTimeout(10000);
 });
@@ -77,6 +79,19 @@ describe("Testing getProducts Api", () => {
     const response = await api.getProducts(token, { page: 1, limit: 1 }, () => {
       return true;
     });
+    expect(response).toBeTruthy();
+  });
+});
+
+describe("Testing getProductRecord Api", () => {
+  test("getProductRecord get response", async () => {
+    const response = await api.getRecordByMethod(
+      token,
+      { record, method: "BALANCE" },
+      () => {
+        return true;
+      }
+    );
     expect(response).toBeTruthy();
   });
 });
