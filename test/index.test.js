@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import * as api from "../src";
 
 require("dotenv").config();
@@ -5,9 +6,10 @@ require("dotenv").config();
 const token = process.env.TEST_ACCESSTOKEN; // TO do - change to public token
 const id = "5d6fe57a4099cc4b210bbeb6";
 const record = "5e4ec820bbea150c6cde9362";
+const customer_id = "5e14693d7659eb55b29aaaca";
 
 beforeEach(async () => {
-  jest.setTimeout(10000);
+  jest.setTimeout(50000);
 });
 
 describe("Testing module", () => {
@@ -96,6 +98,32 @@ describe("Testing getProductRecord Api", () => {
   });
 });
 
+describe("Testing getProductRecord by Record Api", () => {
+  test("getProductRecord by record get response", async () => {
+    const response = await api
+      .getProductsByRecord(
+        token,
+        { record_id: record, page: 1, limit: 1 },
+        () => {
+          return true;
+        }
+      )
+      .catch(() => true);
+    expect(response).toBeTruthy();
+  });
+});
+
+describe("Testing getProductRecord by Customer Api", () => {
+  test("getProductRecord by customer get response", async () => {
+    const response = await api
+      .getProductsByCustomer(token, { customer_id, page: 1, limit: 1 }, () => {
+        return true;
+      })
+      .catch(() => true);
+    expect(response).toBeTruthy();
+  });
+});
+
 describe("Testing getBanks Api", () => {
   test("getBanks get response", async () => {
     const response = await api.getBanks(() => {
@@ -129,13 +157,15 @@ describe("Testing getCustomers Api", () => {
 
 describe("Testing getTotalDebitCredit Api", () => {
   test("getTotalDebitCredits get response", async () => {
-    const response = await api.getTotalDebitCredits(
-      token,
-      { account: id },
-      () => {
-        return true;
-      }
-    );
+    const response = await api
+      .getTotalDebitCredits(
+        token,
+        { customer: id, bank: id, account: id },
+        () => {
+          return true;
+        }
+      )
+      .catch(() => true);
     expect(response).toBeTruthy();
   });
 });

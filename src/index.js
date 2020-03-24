@@ -1,3 +1,4 @@
+/* eslint-disable func-names */
 // @flow
 import axios from "axios";
 import config from "./config";
@@ -220,6 +221,58 @@ export const getRecordByMethod = function(
 };
 
 /**
+ * Retrieves either AUTH, BALANCE, TRANSACTIONS, IDENTITY, INCOME of a customer using record Id.
+ * @param {string} token - AccessToken
+ * @param {object} options - {record - record id, method - one of the okra products}
+ * @param {function} callback
+ */
+export const getProductsByRecord = function(
+  token: string,
+  options: { record_id: string, page: number, limit: number } | {},
+  callback: (error: string | null, result: any) => mixed
+) {
+  const url = `${apiURL}products/all/byRecord`;
+  const request = axios({
+    method: "POST",
+    url,
+    params: options,
+    headers: { Authorization: `Bearer ${token}` }
+  });
+  return request.then(response => {
+    if (response.data.status === "success") {
+      return callback(null, response.data);
+    }
+    return callback(response.data.msg, null);
+  });
+};
+
+/**
+ * Retrieves either AUTH, BALANCE, TRANSACTIONS, IDENTITY, INCOME of a customer using their customer Id.
+ * @param {string} token - AccessToken
+ * @param {object} options - {customer id, method - one of the okra products}
+ * @param {function} callback
+ */
+export const getProductsByCustomer = function(
+  token: string,
+  options: { customer_id: string, page: number, limit: number } | {},
+  callback: (error: string | null, result: any) => mixed
+) {
+  const url = `${apiURL}products/all/byCustomer`;
+  const request = axios({
+    method: "POST",
+    url,
+    params: options,
+    headers: { Authorization: `Bearer ${token}` }
+  });
+  return request.then(response => {
+    if (response.data.status === "success") {
+      return callback(null, response.data);
+    }
+    return callback(response.data.msg, null);
+  });
+};
+
+/**
  * getBanks - retrieves the list of banks available
  */
 export const getBanks = function(
@@ -388,5 +441,7 @@ export default {
   getBankById,
   mergeIdentities,
   retryRecord,
-  getTotalDebitCredits
+  getTotalDebitCredits,
+  getProductsByRecord,
+  getProductsByCustomer
 };
