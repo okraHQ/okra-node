@@ -93,12 +93,28 @@ Field | Required | Description
     const product = results.products;
     });
   ```
-
-* **getCustomerRecordByMethod**: this returns all the available products
+  
+* **getProductsByRecord**: retrieve either AUTH, BALANCE, TRANSACTIONS, IDENTITY, INCOME of a customer using record Id.
   ```node
-    okra_client.getCustomerRecordByMethod(accessToken, { record: 'record_id', method: 'okra_product' }, (err, results) => {
+    okra_client.getProductsByRecord(accessToken, {}, (err, results) => {
+	    // Handle err
+    const product = results;
+    });
+  ```
+
+* **getRecordByMethod**: this returns all the available products
+  ```node
+    okra_client.getRecordByMethod(accessToken, { record: 'record_id', method: 'okra_product' }, (err, results) => {
 	    // Handle err
     const product = results['okra_product'];
+    });
+  ```
+
+* **getProductsByCustomer**: to retrieve either AUTH, BALANCE, TRANSACTIONS, IDENTITY, INCOME of a customer using their customer Id.
+  ```node
+    okra_client.getProductsByCustomer(accessToken, {}, (err, results) => {
+	    // Handle err
+    const product = results;
     });
   ```
 
