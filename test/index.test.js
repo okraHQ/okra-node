@@ -3,7 +3,8 @@ import * as api from "../src";
 
 require("dotenv").config();
 
-const token = process.env.TEST_ACCESSTOKEN; // TO do - change to public token
+const token =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZGMyZTU1MmM2NDNkODZlZDYyNGQ4YjEiLCJpYXQiOjE1NzkyNjQ5ODN9.R7_qldvGRwcYUj8CBRRsOAwvPJqquQ7kKSWX2kB60pQ"; // TO do - change to public token
 const id = "5d6fe57a4099cc4b210bbeb6";
 const record = "5e4ec820bbea150c6cde9362";
 const customer_id = "5e14693d7659eb55b29aaaca";
