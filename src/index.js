@@ -421,6 +421,60 @@ export const getTotalDebitCredits = function(
   });
 };
 
+/**
+ *
+ * @param {string} token - AccessToken
+ * @param {Object} options - {account}
+ * @param {Function} callback
+ * @returns {Function}
+ */
+export const getPeriodicTransaction = function(
+  token: string,
+  options: { record_id: string, account_id: string, currency: string } | {},
+  callback: (error: string | null, result: any) => mixed
+) {
+  const url = `${apiURL}products/transactions/periodic`;
+  const request = axios({
+    method: "POST",
+    url,
+    data: options,
+    headers: { Authorization: `Bearer ${token}` }
+  });
+  return request.then(response => {
+    if (response.data.status === "success") {
+      return callback(null, response.data.data);
+    }
+    return callback(response.data.message, null);
+  });
+};
+
+/**
+ *
+ * @param {string} token - AccessToken
+ * @param {Object} options - {account}
+ * @param {Function} callback
+ * @returns {Function}
+ */
+export const getPeriodicBalance = function(
+  token: string,
+  options: { record_id: string, account_id: string, currency: string } | {},
+  callback: (error: string | null, result: any) => mixed
+) {
+  const url = `${apiURL}products/balance/periodic`;
+  const request = axios({
+    method: "POST",
+    url,
+    data: options,
+    headers: { Authorization: `Bearer ${token}` }
+  });
+  return request.then(response => {
+    if (response.data.status === "success") {
+      return callback(null, response.data.data);
+    }
+    return callback(response.data.message, null);
+  });
+};
+
 export default {
   getAuth,
   getTransactions,
@@ -443,5 +497,7 @@ export default {
   retryRecord,
   getTotalDebitCredits,
   getProductsByRecord,
-  getProductsByCustomer
+  getProductsByCustomer,
+  getPeriodicTransaction,
+  getPeriodicBalance
 };
