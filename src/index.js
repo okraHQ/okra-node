@@ -343,6 +343,33 @@ export const getCustomers = function(
 /**
  *
  * @param {string} token - AccessToken
+ * @param {Object} options {key, name}
+ * @param {Function} callback
+ * @returns {Function}
+ */
+export const findCustomersBy = function(
+  token: string,
+  options: { key: string, value: string } | {},
+  callback: (error: string | null, result: any) => mixed
+) {
+  const url = `${apiURL}customers/find-customers-by`;
+  const request = axios({
+    method: "POST",
+    url,
+    data: options,
+    headers: { Authorization: `Bearer ${token}` }
+  });
+  return request.then(response => {
+    if (response.data.status === "success") {
+      return callback(null, response.data.data);
+    }
+    return callback(response.data.message, null);
+  });
+};
+
+/**
+ *
+ * @param {string} token - AccessToken
  * @param {Object} options - {page and limit}
  * @param {Function} callback
  * @returns {Function}
