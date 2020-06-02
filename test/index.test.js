@@ -1,6 +1,8 @@
 /* eslint-disable camelcase */
 import * as api from "../src";
 
+jest.mock("axios");
+
 require("dotenv").config();
 
 const token =
