@@ -742,7 +742,7 @@ export const getBalanceByCustomer = function(
  */
 export const getBalanceByAccount = function(
   token: string,
-  options: { id: string, page: number, limit: number } | {},
+  options: { account: string, page: number, limit: number } | {},
   callback: (error: string | null, result: any) => mixed
 ) {
   const url = `${apiURL}balance/getByAccount`;
@@ -1566,7 +1566,6 @@ export default {
   getIncomeByDate,
   getIncomeByCustomer,
   getRecords,
-  // getRecordById,
   getAccounts,
   getAccountByCustomerDate,
   getAuthByCustomerDate,
@@ -1574,10 +1573,8 @@ export default {
   getIdentityByCustomerDate,
   getTransactionByCustomerDate,
   getCustomers,
-  // getCustomerById,
   getProducts,
   getRecordByMethod,
-  // getProductById,
   getBanks,
   getBankById,
   mergeIdentities,
