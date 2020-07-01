@@ -152,7 +152,213 @@ Field | Required | Description
       const mergeResult = results;
       });
   ```
+  * **getCustomers**: this returns an array of customers associated to your company
+  ```node
+    okra_client.getCustomers(accessToken, {},(err, results) => {
+	    // Handle err
+    const customers = results.customers;
+    });
+  ```
+  * **getBalanceById**: this Pull real-time balance information with balance id
+  ```node
 
+      okra_client.getBalanceById(accessToken, {id: "5ee8b9d601ef97629b12aa9a"}, (err, results) => {
+          // Handle err
+    const balances = results.balance;
+    });
+  ```
+   * **getBalanceByCustomer**: this Pull real-time balance information with customer id
+  ```node
+
+      okra_client.getBalanceByCustomer(accessToken, {customer: "5ee8b9d601ef97629b12aa9a"}, (err, results) => {
+          // Handle err
+      const balances = results.balance;
+    });
+  ```
+   * **getBalanceByOptions**: this Pull real-time balance information with options set in the widget
+  ```node
+
+      okra_client.getBalanceByOptions(accessToken, {options:{"name": "Lanre"}}, (err, results) => {
+          // Handle err
+      const balances = results.balance;
+    });
+  ```
+   * **getBalanceByDate**: this Pull real-time balance information with range
+  ```node
+
+      okra_client.getBalanceByDate(accessToken, {to:"2020-06-22", from:"2020-01-01"}, (err, results) => {
+          // Handle err
+      const balances = results.balance;
+    });
+  ```
+  * **getBalanceByCustomerDate**: this Pull real-time balance information with range
+  ```node
+
+      okra_client.getBalanceByCustomerDate(accessToken, {to:"2020-06-22", from:"2020-01-01", customer:"5ee8b9d601ef97629b12aa9a"}, (err, results) => {
+          // Handle err
+      const balances = results.balance;
+    });
+  ```
+
+  * **getTransactionById**: this Pull real-time transaction information with transaction id
+  ```node
+      okra_client.getTransactionById(accessToken {id: "5eeb46a93805adbe80521c62"}, (err, results) => {
+        // Handle err
+     const transactions = results.transaction;
+    });
+  ```
+  * **getTransactionByCustomer**: this Pull real-time transaction information with customer id
+  ```node
+      okra_client.getTransactionByCustomer(accessToken {customer: "5eeb46a93805adbe80521c62"}, (err, results) => {
+        // Handle err
+     const transactions = results.transaction;
+    });
+  ```
+ * **getTransactionByOptions**: this Pull real-time transaction information with options set in the widget
+  ```node
+      okra_client.getTransactionByOptions(accessToken options:{"firstname": "Lanre"}, (err, results) => {
+        // Handle err
+     const transactions = results.transaction;
+    });
+  ```
+ * **getTransactionByDate**: this Pull real-time transaction information with date range
+  ```node
+      okra_client.getTransactionByDate(accessToken {to: "2020-06-01", from: "2020-01-01"}, (err, results) => {
+        // Handle err
+     const transactions = results.transaction;
+    });
+  ```
+ * **getTransactionByCustomerDate**: this Pull real-time transaction information with transaction id
+  ```node
+      okra_client.getTransactionByCustomerDate(accessToken {to: "2020-06-01", from: "2020-01-01", 
+      customer_id: "5eeb46a93805adbe80521c62"}, (err, results) => {
+        // Handle err
+     const transactions = results.transaction;
+    });
+  ```
+ * **getAuthById**: this Pull real-time auth information with auth id
+  ```node
+      okra_client.getAuthById(accessToken {id: "5eeb46a93805adbe80521c62"}, (err, results) => {
+        // Handle err
+     const transactions = results.auths;
+    });
+  ```
+  * **getAuthByCustomer**: this Pull real-time auth information with customer id
+  ```node
+      okra_client.getAuthByCustomer(accessToken {customer: "5eeb46a93805adbe80521c62"}, (err, results) => {
+        // Handle err
+     const transactions = results.auths;
+    });
+  ```
+ * **getAuthByOptions**: this Pull real-time auth information with options set in the widget
+  ```node
+      okra_client.getAuthByOptions(accessToken options:{"firstname": "Lanre"}, (err, results) => {
+        // Handle err
+     const transactions = results.auths;
+    });
+  ```
+ * **getAuthByDate**: this Pull real-time auth information with date range
+  ```node
+      okra_client.getAuthByDate(accessToken {to: "2020-06-01", from: "2020-01-01"}, (err, results) => {
+        // Handle err
+     const transactions = results.auths;
+    });
+  ```
+ * **getAuthByCustomerDate**: this Pull real-time auth information with auth id
+  ```node
+      okra_client.getAuthByCustomerDate(accessToken {to: "2020-06-01", from: "2020-01-01", customer: "5eeb46a93805adbe80521c62"}, (err, results) => {
+        // Handle err
+     const transactions = results.auths;
+    });
+  ```
+  * **getIdentityById**: this Pull real-time identity information with identity id
+  ```node
+      okra_client.getIdentityById(accessToken {id: "5eeb46a93805adbe80521c62"}, (err, results) => {
+        // Handle err
+     const transactions = results.identity;
+    });
+  ```
+  * **getIdentityByCustomer**: this Pull real-time identity information with customer id
+  ```node
+      okra_client.getIdentityByCustomer(accessToken {customer: "5eeb46a93805adbe80521c62"}, (err, results) => {
+        // Handle err
+     const transactions = results.identity;
+    });
+  ```
+ * **getIdentityByOptions**: this Pull real-time identity information with options set in the widget
+  ```node
+      okra_client.getIdentityByOptions(accessToken options:{"firstname":Lanre""}, (err, results) => {
+        // Handle err
+     const transactions = results.identity;
+    });
+  ```
+ * **getIdentityByDate**: this Pull real-time identity information with date range
+  ```node
+      okra_client.getIdentityByDate(accessToken {to: "2020-06-01", from: "2020-01-01"}, (err, results) => {
+        // Handle err
+     const transactions = results.identity;
+    });
+  ```
+ * **getIdentityByCustomerDate**: this Pull real-time identity information with identity id
+  ```node
+      okra_client.getIdentityByCustomerDate(accessToken {to: "2020-06-01", from: "2020-01-01", customer: "5eeb46a93805adbe80521c62"}, (err, results) => {
+        // Handle err
+     const transactions = results.identity;
+    });
+  ```
+  * **getIncomeById**: this Pull real-time income information with income id
+  ```node
+      okra_client.getIncomeById(accessToken {id: "5eeb46a93805adbe80521c62"}, (err, results) => {
+        // Handle err
+     const transactions = results.income;
+    });
+  ```
+  * **getIncomeByCustomer**: this Pull real-time income information with customer id
+  ```node
+      okra_client.getIncomeByCustomer(accessToken {customer: "5eeb46a93805adbe80521c62"}, (err, results) => {
+        // Handle err
+     const transactions = results.income;
+    });
+  ```
+ * **getIncomeByDate**: this Pull real-time income information with date range
+  ```node
+      okra_client.getIncomeByDate(accessToken {to: "2020-06-01", from: "2020-01-01"}, (err, results) => {
+        // Handle err
+     const transactions = results.income;
+    });
+  ```
+ * **getIncomeByCustomerDate**: this Pull real-time income information with income id
+  ```node
+      okra_client.getIncomeByCustomerDate(accessToken {to: "2020-06-01", from: "2020-01-01", customer:"5782t172gdjdbdd"}, (err, results) => {
+        // Handle err
+     const transactions = results.income;
+    });
+  ```
+  * **getICustomerDTI**: this returns the percentage of credits to debits on a connected account.
+  ```node
+      okra_client.getCustomerDTI(accessToken, {customer_id:"5anh890978ddndk39"}, (err, results) => {
+        // Handle err
+      const products = results.products;
+    });
+  ```
+  * **getCustomersByKey**: this returns an array of customers associated to your company by keywords eg name, email
+  ```node
+    okra_client.getCustomersByKey(accessToken, {key: 'name', value: 'akeeb'},(err, results) => {
+        // Handle err
+    const customers = results.customers;
+    });
+  ```
+  * **getCustomersByIdentity**: this fetch a customer by any unique ID associated with the customer.Unique ID includes BVN, NIN, 'drivers_license', national_id, nims, voters_id, rc_number
+  ```node
+    okra_client.getCustomerByIdentity(accessToken, {type:"bvn", value:"38261936382"}, (err, results) => {
+      // Handle err
+    const identities = results.identity;
+    });
+  ```
+  
+
+
+ 
 Field | Required | Description
 ---|---|---
 **final**<br>`String` | yes | Id of identity to merge into.
