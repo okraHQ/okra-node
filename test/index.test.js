@@ -4,17 +4,17 @@ import * as api from "../src";
 require("dotenv").config();
 
 const token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZDkyODhlYTE4MmQzZDAwMGNiN2M0ODYiLCJpYXQiOjE1OTYwMjI0NTF9.yPogxqMx_kUquRPEZAGLHgiq-wnFk20UtZjVhat4PPc"; // TO do - change to public token
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZGMyZTU1MmM2NDNkODZlZDYyNGQ4YjEiLCJpYXQiOjE1NzkyNjQ5ODN9.R7_qldvGRwcYUj8CBRRsOAwvPJqquQ7kKSWX2kB60pQ"; // TO do - change to public token
 const id = "5e93c0280346044211aa0a42";
-const record = "5f4ade080a492ba23efa29eb";
-const account = "5eadda5c840284164c92cacc";
+const record = "5e93c0280346044211aa0a42";
+const account = "5e93c0280346044211aa0a42";
 const customer_id = "5e93c0280346044211aa0a42";
 const to = "2020-08-31";
 const from = "2020-04-01";
-const options = { rich: null, poor: null };
 const type = "ledger_balance";
 const value = 2000;
-const bank = "5d6fe57a4099cc4b210bbeb4";
+const bank = "5d6fe57a4099cc4b210bbeb6";
+const options = { name: "lanre" };
 
 beforeEach(async () => {
   jest.setTimeout(100000);
@@ -176,6 +176,18 @@ describe("Testing processIncome Api", () => {
 describe("Testin Spending Pattern Api", () => {
   test("Spending pattern get response", async () => {
     const response = await api.getSpendingPattern(
+      token,
+      { customer_id },
+      () => {
+        return true;
+      }
+    );
+    expect(response).toBeTruthy();
+  });
+});
+describe("Testing Enhanced balance Api", () => {
+  test("Enhanced balance get response", async () => {
+    const response = await api.getEnhancedBalance(
       token,
       { customer_id },
       () => {
@@ -474,7 +486,7 @@ describe("Testing getIncomeBy Api", () => {
   test("getIncomeById get response", async () => {
     const response = await api.getIncomeById(
       token,
-      { id: "5f5ad9e43103d912f16a36fa" },
+      { id: "5f5ad9e43103d912f16a36fb" },
       () => {
         return true;
       }

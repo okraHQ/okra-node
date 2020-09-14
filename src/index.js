@@ -14,7 +14,7 @@ const { apiURL } = config;
  */
 export const getAuth = function(
   token: string,
-  options: { page: number, limit: number } | {},
+  options: { page: number, limit: number, pdf: string } | {},
   callback: (error: string | null, result: any) => mixed
 ) {
   const url = `${apiURL}products/auths`;
@@ -41,7 +41,7 @@ export const getAuth = function(
  */
 export const getTransactions = function(
   token: string,
-  options: { page: number, limit: number } | {},
+  options: { page: number, limit: number, pdf: string } | {},
   callback: (error: string | null, result: any) => mixed
 ) {
   const url = `${apiURL}products/transactions`;
@@ -67,7 +67,7 @@ export const getTransactions = function(
  */
 export const getBalances = function(
   token: string,
-  options: { page: number, limit: number } | {},
+  options: { page: number, limit: number, pdf: string } | {},
   callback: (error: string | null, result: any) => mixed
 ) {
   const url = `${apiURL}products/balances`;
@@ -95,7 +95,7 @@ export const getBalances = function(
  */
 export const getIdentities = function(
   token: string,
-  options: { page: number, limit: number } | {},
+  options: { page: number, limit: number, pdf: string } | {},
   callback: (error: string | null, result: any) => mixed
 ) {
   const url = `${apiURL}products/identities`;
@@ -122,7 +122,7 @@ export const getIdentities = function(
  */
 export const getRecords = function(
   token: string,
-  options: { page: number, limit: number } | {},
+  options: { page: number, limit: number, pdf: string } | {},
   callback: (error: string | null, result: any) => mixed
 ) {
   const url = `${apiURL}products/records`;
@@ -149,7 +149,7 @@ export const getRecords = function(
  */
 export const getAccounts = function(
   token: string,
-  options: { page: number, limit: number } | {},
+  options: { page: number, limit: number, pdf: string } | {},
   callback: (error: string | null, result: any) => mixed
 ) {
   const url = `${apiURL}products/accounts`;
@@ -537,10 +537,30 @@ export const processIncome = function(
  */
 export const getSpendingPattern = function(
   token: string,
-  options: { customer_id: string } | {},
+  options: { customer_id: string, pdf: string } | {},
   callback: (error: string | null, result: any) => mixed
 ) {
   const url = `${apiURL}products/transactions/spending-pattern`;
+  const request = axios({
+    method: "POST",
+    url,
+    data: options,
+    headers: { Authorization: `Bearer ${token}` }
+  });
+  return request.then(response => {
+    if (response.data.status === "success") {
+      return callback(null, response.data.data);
+    }
+    return callback(response.data.message, null);
+  });
+};
+
+export const getEnhancedBalance = function(
+  token: string,
+  options: { customer_id: string, pdf: string } | {},
+  callback: (error: string | null, result: any) => mixed
+) {
+  const url = `${apiURL}/transaction/balance/process`;
   const request = axios({
     method: "POST",
     url,
@@ -872,7 +892,15 @@ export const getTransactionById = function(
  */
 export const getTransactionByCustomer = function(
   token: string,
-  options: { customer: string, page: number, limit: number } | {},
+  options:
+    | {
+        customer: string,
+        page: number,
+        limit: number,
+        pdf: string,
+        enhanced: string
+      }
+    | {},
   callback: (error: string | null, result: any) => mixed
 ) {
   const url = `${apiURL}transaction/getByCustomer`;
@@ -1561,5 +1589,6 @@ export default {
   getSpendingPattern,
   getCustomerByIdentity,
   getCustomerDTI,
-  getCustomersByKey
+  getCustomersByKey,
+  getEnhancedBalance
 };
