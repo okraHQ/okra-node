@@ -14,7 +14,7 @@ const { apiURL } = config;
  */
 export const getAuth = function(
   token: string,
-  options: { page: number, limit: number } | {},
+  options: { page: number, limit: number, pdf: string } | {},
   callback: (error: string | null, result: any) => mixed
 ) {
   const url = `${apiURL}products/auths`;
@@ -41,7 +41,7 @@ export const getAuth = function(
  */
 export const getTransactions = function(
   token: string,
-  options: { page: number, limit: number } | {},
+  options: { page: number, limit: number, pdf: string } | {},
   callback: (error: string | null, result: any) => mixed
 ) {
   const url = `${apiURL}products/transactions`;
@@ -67,7 +67,7 @@ export const getTransactions = function(
  */
 export const getBalances = function(
   token: string,
-  options: { page: number, limit: number } | {},
+  options: { page: number, limit: number, pdf: string } | {},
   callback: (error: string | null, result: any) => mixed
 ) {
   const url = `${apiURL}products/balances`;
@@ -95,7 +95,7 @@ export const getBalances = function(
  */
 export const getIdentities = function(
   token: string,
-  options: { page: number, limit: number } | {},
+  options: { page: number, limit: number, pdf: string } | {},
   callback: (error: string | null, result: any) => mixed
 ) {
   const url = `${apiURL}products/identities`;
@@ -122,7 +122,7 @@ export const getIdentities = function(
  */
 export const getRecords = function(
   token: string,
-  options: { page: number, limit: number } | {},
+  options: { page: number, limit: number, pdf: string } | {},
   callback: (error: string | null, result: any) => mixed
 ) {
   const url = `${apiURL}products/records`;
@@ -149,7 +149,7 @@ export const getRecords = function(
  */
 export const getAccounts = function(
   token: string,
-  options: { page: number, limit: number } | {},
+  options: { page: number, limit: number, pdf: string } | {},
   callback: (error: string | null, result: any) => mixed
 ) {
   const url = `${apiURL}products/accounts`;
@@ -235,7 +235,7 @@ export const getProductsByRecord = function(
   const request = axios({
     method: "POST",
     url,
-    params: options,
+    data: options,
     headers: { Authorization: `Bearer ${token}` }
   });
   return request.then(response => {
@@ -261,7 +261,7 @@ export const getProductsByCustomer = function(
   const request = axios({
     method: "POST",
     url,
-    params: options,
+    data: options,
     headers: { Authorization: `Bearer ${token}` }
   });
   return request.then(response => {
@@ -537,10 +537,30 @@ export const processIncome = function(
  */
 export const getSpendingPattern = function(
   token: string,
-  options: { customer_id: string } | {},
+  options: { customer_id: string, pdf: string } | {},
   callback: (error: string | null, result: any) => mixed
 ) {
   const url = `${apiURL}products/transactions/spending-pattern`;
+  const request = axios({
+    method: "POST",
+    url,
+    data: options,
+    headers: { Authorization: `Bearer ${token}` }
+  });
+  return request.then(response => {
+    if (response.data.status === "success") {
+      return callback(null, response.data.data);
+    }
+    return callback(response.data.message, null);
+  });
+};
+
+export const getEnhancedBalance = function(
+  token: string,
+  options: { customer_id: string, pdf: string } | {},
+  callback: (error: string | null, result: any) => mixed
+) {
+  const url = `${apiURL}/transaction/balance/process`;
   const request = axios({
     method: "POST",
     url,
@@ -570,12 +590,12 @@ export const getAuthByCustomer = function(
   const request = axios({
     method: "POST",
     url,
-    params: options,
+    data: options,
     headers: { Authorization: `Bearer ${token}` }
   });
   return request.then(response => {
     if (response.data.status === "success") {
-      return callback(null, response.data);
+      return callback(null, response.data.data);
     }
     return callback(response.data.msg, null);
   });
@@ -595,12 +615,12 @@ export const getAuthByDate = function(
   const request = axios({
     method: "POST",
     url,
-    params: options,
+    data: options,
     headers: { Authorization: `Bearer ${token}` }
   });
   return request.then(response => {
     if (response.data.status === "success") {
-      return callback(null, response.data);
+      return callback(null, response.data.data);
     }
     return callback(response.data.msg, null);
   });
@@ -621,12 +641,12 @@ export const getAuthByOptions = function(
   const request = axios({
     method: "POST",
     url,
-    params: options,
+    data: options,
     headers: { Authorization: `Bearer ${token}` }
   });
   return request.then(response => {
     if (response.data.status === "success") {
-      return callback(null, response.data);
+      return callback(null, response.data.data);
     }
     return callback(response.data.msg, null);
   });
@@ -647,12 +667,12 @@ export const getAuthByBank = function(
   const request = axios({
     method: "POST",
     url,
-    params: options,
+    data: options,
     headers: { Authorization: `Bearer ${token}` }
   });
   return request.then(response => {
     if (response.data.status === "success") {
-      return callback(null, response.data);
+      return callback(null, response.data.data);
     }
     return callback(response.data.msg, null);
   });
@@ -672,12 +692,12 @@ export const getAuthById = function(
   const request = axios({
     method: "POST",
     url,
-    params: options,
+    data: options,
     headers: { Authorization: `Bearer ${token}` }
   });
   return request.then(response => {
     if (response.data.status === "success") {
-      return callback(null, response.data);
+      return callback(null, response.data.data);
     }
     return callback(response.data.msg, null);
   });
@@ -697,12 +717,12 @@ export const getBalanceById = function(
   const request = axios({
     method: "POST",
     url,
-    params: options,
+    data: options,
     headers: { Authorization: `Bearer ${token}` }
   });
   return request.then(response => {
     if (response.data.status === "success") {
-      return callback(null, response.data);
+      return callback(null, response.data.data);
     }
     return callback(response.data.msg, null);
   });
@@ -723,12 +743,12 @@ export const getBalanceByCustomer = function(
   const request = axios({
     method: "POST",
     url,
-    params: options,
+    data: options,
     headers: { Authorization: `Bearer ${token}` }
   });
   return request.then(response => {
     if (response.data.status === "success") {
-      return callback(null, response.data);
+      return callback(null, response.data.data);
     }
     return callback(response.data.msg, null);
   });
@@ -749,12 +769,12 @@ export const getBalanceByAccount = function(
   const request = axios({
     method: "POST",
     url,
-    params: options,
+    data: options,
     headers: { Authorization: `Bearer ${token}` }
   });
   return request.then(response => {
     if (response.data.status === "success") {
-      return callback(null, response.data);
+      return callback(null, response.data.data);
     }
     return callback(response.data.msg, null);
   });
@@ -775,12 +795,12 @@ export const getBalanceByDate = function(
   const request = axios({
     method: "POST",
     url,
-    params: options,
+    data: options,
     headers: { Authorization: `Bearer ${token}` }
   });
   return request.then(response => {
     if (response.data.status === "success") {
-      return callback(null, response.data);
+      return callback(null, response.data.data);
     }
     return callback(response.data.msg, null);
   });
@@ -801,12 +821,12 @@ export const getBalanceByOptions = function(
   const request = axios({
     method: "POST",
     url,
-    params: options,
+    data: options,
     headers: { Authorization: `Bearer ${token}` }
   });
   return request.then(response => {
     if (response.data.status === "success") {
-      return callback(null, response.data);
+      return callback(null, response.data.data);
     }
     return callback(response.data.msg, null);
   });
@@ -827,7 +847,7 @@ export const getBalanceByType = function(
   const request = axios({
     method: "POST",
     url,
-    params: options,
+    data: options,
     headers: { Authorization: `Bearer ${token}` }
   });
   return request.then(response => {
@@ -853,12 +873,12 @@ export const getTransactionById = function(
   const request = axios({
     method: "POST",
     url,
-    params: options,
+    data: options,
     headers: { Authorization: `Bearer ${token}` }
   });
   return request.then(response => {
     if (response.data.status === "success") {
-      return callback(null, response.data);
+      return callback(null, response.data.data);
     }
     return callback(response.data.msg, null);
   });
@@ -872,19 +892,27 @@ export const getTransactionById = function(
  */
 export const getTransactionByCustomer = function(
   token: string,
-  options: { customer: string, page: number, limit: number } | {},
+  options:
+    | {
+        customer: string,
+        page: number,
+        limit: number,
+        pdf: string,
+        enhanced: string
+      }
+    | {},
   callback: (error: string | null, result: any) => mixed
 ) {
   const url = `${apiURL}transaction/getByCustomer`;
   const request = axios({
     method: "POST",
     url,
-    params: options,
+    data: options,
     headers: { Authorization: `Bearer ${token}` }
   });
   return request.then(response => {
     if (response.data.status === "success") {
-      return callback(null, response.data);
+      return callback(null, response.data.data);
     }
     return callback(response.data.msg, null);
   });
@@ -905,12 +933,12 @@ export const getTransactionByAccount = function(
   const request = axios({
     method: "POST",
     url,
-    params: options,
+    data: options,
     headers: { Authorization: `Bearer ${token}` }
   });
   return request.then(response => {
     if (response.data.status === "success") {
-      return callback(null, response.data);
+      return callback(null, response.data.data);
     }
     return callback(response.data.msg, null);
   });
@@ -931,12 +959,12 @@ export const getTransactionByDate = function(
   const request = axios({
     method: "POST",
     url,
-    params: options,
+    data: options,
     headers: { Authorization: `Bearer ${token}` }
   });
   return request.then(response => {
     if (response.data.status === "success") {
-      return callback(null, response.data);
+      return callback(null, response.data.data);
     }
     return callback(response.data.msg, null);
   });
@@ -957,12 +985,12 @@ export const getTransactionByOptions = function(
   const request = axios({
     method: "POST",
     url,
-    params: options,
+    data: options,
     headers: { Authorization: `Bearer ${token}` }
   });
   return request.then(response => {
     if (response.data.status === "success") {
-      return callback(null, response.data);
+      return callback(null, response.data.data);
     }
     return callback(response.data.msg, null);
   });
@@ -983,38 +1011,12 @@ export const getTransactionByType = function(
   const request = axios({
     method: "POST",
     url,
-    params: options,
+    data: options,
     headers: { Authorization: `Bearer ${token}` }
   });
   return request.then(response => {
     if (response.data.status === "success") {
-      return callback(null, response.data);
-    }
-    return callback(response.data.msg, null);
-  });
-};
-
-/**
- * This endpoint allows you to fetch transaction info using the id of the account.
- * @param {string} token - AccessToken
- * @param {object} options - {nuban, page and limit}
- * @param {function} callback
- */
-export const getTransactionByNuban = function(
-  token: string,
-  options: { nuban: string, page: number, limit: number } | {},
-  callback: (error: string | null, result: any) => mixed
-) {
-  const url = `${apiURL}transaction/getByNuban`;
-  const request = axios({
-    method: "POST",
-    url,
-    params: options,
-    headers: { Authorization: `Bearer ${token}` }
-  });
-  return request.then(response => {
-    if (response.data.status === "success") {
-      return callback(null, response.data);
+      return callback(null, response.data.data);
     }
     return callback(response.data.msg, null);
   });
@@ -1034,12 +1036,12 @@ export const getTransactionByBank = function(
   const request = axios({
     method: "POST",
     url,
-    params: options,
+    data: options,
     headers: { Authorization: `Bearer ${token}` }
   });
   return request.then(response => {
     if (response.data.status === "success") {
-      return callback(null, response.data);
+      return callback(null, response.data.data);
     }
     return callback(response.data.msg, null);
   });
@@ -1060,12 +1062,12 @@ export const getIdentityById = function(
   const request = axios({
     method: "POST",
     url,
-    params: options,
+    data: options,
     headers: { identityorization: `Bearer ${token}` }
   });
   return request.then(response => {
     if (response.data.status === "success") {
-      return callback(null, response.data);
+      return callback(null, response.data.data);
     }
     return callback(response.data.msg, null);
   });
@@ -1086,12 +1088,12 @@ export const getIdentityByCustomer = function(
   const request = axios({
     method: "POST",
     url,
-    params: options,
+    data: options,
     headers: { identityorization: `Bearer ${token}` }
   });
   return request.then(response => {
     if (response.data.status === "success") {
-      return callback(null, response.data);
+      return callback(null, response.data.data);
     }
     return callback(response.data.msg, null);
   });
@@ -1112,12 +1114,12 @@ export const getIdentityByDate = function(
   const request = axios({
     method: "POST",
     url,
-    params: options,
+    data: options,
     headers: { identityorization: `Bearer ${token}` }
   });
   return request.then(response => {
     if (response.data.status === "success") {
-      return callback(null, response.data);
+      return callback(null, response.data.data);
     }
     return callback(response.data.msg, null);
   });
@@ -1138,12 +1140,12 @@ export const getIdentityByOptions = function(
   const request = axios({
     method: "POST",
     url,
-    params: options,
+    data: options,
     headers: { identityorization: `Bearer ${token}` }
   });
   return request.then(response => {
     if (response.data.status === "success") {
-      return callback(null, response.data);
+      return callback(null, response.data.data);
     }
     return callback(response.data.msg, null);
   });
@@ -1164,12 +1166,12 @@ export const getIncomeById = function(
   const request = axios({
     method: "POST",
     url,
-    params: options,
+    data: options,
     headers: { Authorization: `Bearer ${token}` }
   });
   return request.then(response => {
     if (response.data.status === "success") {
-      return callback(null, response.data);
+      return callback(null, response.data.data);
     }
     return callback(response.data.msg, null);
   });
@@ -1190,12 +1192,12 @@ export const getIncomeByCustomer = function(
   const request = axios({
     method: "POST",
     url,
-    params: options,
+    data: options,
     headers: { Authorization: `Bearer ${token}` }
   });
   return request.then(response => {
     if (response.data.status === "success") {
-      return callback(null, response.data);
+      return callback(null, response.data.data);
     }
     return callback(response.data.msg, null);
   });
@@ -1215,12 +1217,12 @@ export const getIncomeByDate = function(
   const request = axios({
     method: "POST",
     url,
-    params: options,
+    data: options,
     headers: { Authorization: `Bearer ${token}` }
   });
   return request.then(response => {
     if (response.data.status === "success") {
-      return callback(null, response.data);
+      return callback(null, response.data.data);
     }
     return callback(response.data.msg, null);
   });
@@ -1241,12 +1243,12 @@ export const getIncomeByOptions = function(
   const request = axios({
     method: "POST",
     url,
-    params: options,
+    data: options,
     headers: { Authorization: `Bearer ${token}` }
   });
   return request.then(response => {
     if (response.data.status === "success") {
-      return callback(null, response.data);
+      return callback(null, response.data.data);
     }
     return callback(response.data.msg, null);
   });
@@ -1275,12 +1277,12 @@ export const getIncomeByCustomerDate = function(
   const request = axios({
     method: "POST",
     url,
-    params: options,
+    data: options,
     headers: { Authorization: `Bearer ${token}` }
   });
   return request.then(response => {
     if (response.data.status === "success") {
-      return callback(null, response.data);
+      return callback(null, response.data.data);
     }
     return callback(response.data.msg, null);
   });
@@ -1309,12 +1311,12 @@ export const getBalanceByCustomerDate = function(
   const request = axios({
     method: "POST",
     url,
-    params: options,
+    data: options,
     headers: { Authorization: `Bearer ${token}` }
   });
   return request.then(response => {
     if (response.data.status === "success") {
-      return callback(null, response.data);
+      return callback(null, response.data.data);
     }
     return callback(response.data.msg, null);
   });
@@ -1343,12 +1345,12 @@ export const getIdentityByCustomerDate = function(
   const request = axios({
     method: "POST",
     url,
-    params: options,
+    data: options,
     headers: { Authorization: `Bearer ${token}` }
   });
   return request.then(response => {
     if (response.data.status === "success") {
-      return callback(null, response.data);
+      return callback(null, response.data.data);
     }
     return callback(response.data.msg, null);
   });
@@ -1377,12 +1379,12 @@ export const getTransactionByCustomerDate = function(
   const request = axios({
     method: "POST",
     url,
-    params: options,
+    data: options,
     headers: { Authorization: `Bearer ${token}` }
   });
   return request.then(response => {
     if (response.data.status === "success") {
-      return callback(null, response.data);
+      return callback(null, response.data.data);
     }
     return callback(response.data.msg, null);
   });
@@ -1411,12 +1413,12 @@ export const getAuthByCustomerDate = function(
   const request = axios({
     method: "POST",
     url,
-    params: options,
+    data: options,
     headers: { Authorization: `Bearer ${token}` }
   });
   return request.then(response => {
     if (response.data.status === "success") {
-      return callback(null, response.data);
+      return callback(null, response.data.data);
     }
     return callback(response.data.msg, null);
   });
@@ -1444,12 +1446,12 @@ export const getAccountByCustomerDate = function(
   const request = axios({
     method: "POST",
     url,
-    params: options,
+    data: options,
     headers: { Authorization: `Bearer ${token}` }
   });
   return request.then(response => {
     if (response.data.status === "success") {
-      return callback(null, response.data);
+      return callback(null, response.data.data);
     }
     return callback(response.data.msg, null);
   });
@@ -1463,19 +1465,19 @@ export const getAccountByCustomerDate = function(
  */
 export const getCustomerDTI = function(
   token: string,
-  options: { customer_id: string, page: number, limit: number } | {},
+  options: { customerId: string, page: number, limit: number } | {},
   callback: (error: string | null, result: any) => mixed
 ) {
   const url = `${apiURL}customers/dti/get`;
   const request = axios({
     method: "POST",
     url,
-    params: options,
+    data: options,
     headers: { Authorization: `Bearer ${token}` }
   });
   return request.then(response => {
     if (response.data.status === "success") {
-      return callback(null, response.data);
+      return callback(null, response.data.data);
     }
     return callback(response.data.msg, null);
   });
@@ -1496,12 +1498,12 @@ export const getCustomerByIdentity = function(
   const request = axios({
     method: "POST",
     url,
-    params: options,
+    data: options,
     headers: { Authorization: `Bearer ${token}` }
   });
   return request.then(response => {
     if (response.data.status === "success") {
-      return callback(null, response.data);
+      return callback(null, response.data.data);
     }
     return callback(response.data.msg, null);
   });
@@ -1522,12 +1524,12 @@ export const getCustomersByKey = function(
   const request = axios({
     method: "POST",
     url,
-    params: options,
+    data: options,
     headers: { Authorization: `Bearer ${token}` }
   });
   return request.then(response => {
     if (response.data.status === "success") {
-      return callback(null, response.data);
+      return callback(null, response.data.data);
     }
     return callback(response.data.msg, null);
   });
@@ -1546,7 +1548,6 @@ export default {
   getTransactionByBank,
   getTransactionByCustomer,
   getTransactionByDate,
-  getTransactionByNuban,
   getTransactionByOptions,
   getTransactionByType,
   getBalances,
@@ -1588,5 +1589,6 @@ export default {
   getSpendingPattern,
   getCustomerByIdentity,
   getCustomerDTI,
-  getCustomersByKey
+  getCustomersByKey,
+  getEnhancedBalance
 };
