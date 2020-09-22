@@ -4,7 +4,7 @@
   "description": "Okra JS Node Module",
   "license": "MIT",
   "repository": "okraHQ/okra-node",
-  "main": "src/index.js",
+  "main": "dist/index.js",
   "author": {
     "name": "Okra, Inc.",
     "email": "dev@okra.ng",
