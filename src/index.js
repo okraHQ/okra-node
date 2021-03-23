@@ -805,6 +805,57 @@ export const getBalanceByDate = function(
     return callback(response.data.msg, null);
   });
 };
+/**
+ * This endpoint allows you to check if balance has changed.
+ * @param {string} token - AccessToken
+ * @param {object} options - {account_id and record_id}
+ * @param {function} callback
+ */
+export const checkBalance = function(
+  token: string,
+  options: { account_id: string, record_id: string } | {},
+  callback: (error: string | null, result: any) => mixed
+) {
+  const url = `${apiURL}balance/check`;
+  const request = axios({
+    method: "POST",
+    url,
+    data: options,
+    headers: { Authorization: `Bearer ${token}` }
+  });
+  return request.then(response => {
+    if (response.data.status === "success") {
+      return callback(null, response.data.data);
+    }
+    return callback(response.data.msg, null);
+  });
+};
+/**
+ * This endpoint allows you to obtain real-time balance information.
+ * @param {string} token - AccessToken
+ * @param {object} options - {account_id and record_id}
+ * @param {function} callback
+ */
+export const refreshBalance = function(
+  token: string,
+  options: { account_id: string, record_id: string } | {},
+  callback: (error: string | null, result: any) => mixed
+) {
+  const url = `${apiURL}balance/refresh`;
+  const request = axios({
+    method: "POST",
+    url,
+    data: options,
+    headers: { Authorization: `Bearer ${token}` }
+  });
+  return request.then(response => {
+    if (response.data.status === "success") {
+      console.log(response.data);
+      return callback(null, response.data.data);
+    }
+    return callback(response.data.msg, null);
+  });
+};
 
 /**
  * endpoint allows you to fetch balance info using the options metadata you provided when setting up the widget.
@@ -878,6 +929,85 @@ export const getTransactionById = function(
   });
   return request.then(response => {
     if (response.data.status === "success") {
+      return callback(null, response.data.data);
+    }
+    return callback(response.data.msg, null);
+  });
+};
+/**
+ * This endpoint allows you to fetch transaction by record_id.
+ * @param {string} token - AccessToken
+ * @param {object} options - {record_id, page and limit}
+ * @param {function} callback
+ */
+export const getTransactionByRecord = function(
+  token: string,
+  options: { record_id: string, page: number, limit: number } | {},
+  callback: (error: string | null, result: any) => mixed
+) {
+  const url = `${apiURL}transaction/byRecord`;
+  const request = axios({
+    method: "POST",
+    url,
+    data: options,
+    headers: { Authorization: `Bearer ${token}` }
+  });
+  return request.then(response => {
+    if (response.data.status === "success") {
+      console.log(response.data);
+      return callback(null, response.data.data);
+    }
+    return callback(response.data.msg, null);
+  });
+};
+
+/**
+ * This endpoint allows you to obtain real-time transaction information.
+ * @param {string} token - AccessToken
+ * @param {object} options - {account_id}
+ * @param {function} callback
+ */
+export const refreshTransaction = function(
+  token: string,
+  options: { account_id: string } | {},
+  callback: (error: string | null, result: any) => mixed
+) {
+  const url = `${apiURL}transaction/refresh`;
+  const request = axios({
+    method: "POST",
+    url,
+    data: options,
+    headers: { Authorization: `Bearer ${token}` }
+  });
+  return request.then(response => {
+    if (response.data.status === "success") {
+      return callback(null, response.data.data);
+    }
+    return callback(response.data.msg, null);
+  });
+};
+
+/**
+ * This endpoint allows you to get a real-time breakdown of your transactions.
+ * @param {string} token - AccessToken
+ * @param {object} options - {account}
+ * @param {function} callback
+ */
+export const getEnhancedTransaction = function(
+  token: string,
+  options: { account: string } | {},
+  callback: (error: string | null, result: any) => mixed
+) {
+  const url = `${apiURL}transaction/process`;
+  const request = axios({
+    method: "POST",
+    url,
+    data: options,
+    headers: { Authorization: `Bearer ${token}` }
+  });
+  return request.then(response => {
+    if (response.data.status === "success") {
+      console.log(response.data);
       return callback(null, response.data.data);
     }
     return callback(response.data.msg, null);
@@ -1151,6 +1281,32 @@ export const getIdentityByOptions = function(
   });
 };
 
+/**
+ * This endpoint allows you to fetch income info using the id of the income.
+ * @param {string} token - AccessToken
+ * @param {object} options - {page and limit}
+ * @param {function} callback
+ */
+export const getIncome = function(
+  token: string,
+  options: { page: number, limit: number } | {},
+  callback: (error: string | null, result: any) => mixed
+) {
+  const url = `${apiURL}products/income/get`;
+  const request = axios({
+    method: "POST",
+    url,
+    data: options,
+    headers: { Authorization: `Bearer ${token}` }
+  });
+  return request.then(response => {
+    if (response.data.status === "success") {
+      console.log(response.data);
+      return callback(null, response.data.data);
+    }
+    return callback(response.data.msg, null);
+  });
+};
 /**
  * This endpoint allows you to fetch income info using the id of the income.
  * @param {string} token - AccessToken
@@ -1458,6 +1614,94 @@ export const getAccountByCustomerDate = function(
 };
 
 /**
+ * This endpoint allows you to fetch account info using the id of the account.
+ * @param {string} token - AccessToken
+ * @param {object} options - {id, page and limit}
+ * @param {function} callback
+ */
+export const getAccountById = function(
+  token: string,
+  options: { id: string, page: number, limit: number } | {},
+  callback: (error: string | null, result: any) => mixed
+) {
+  const url = `${apiURL}accounts/getById`;
+  const request = axios({
+    method: "POST",
+    url,
+    data: options,
+    headers: { Authorization: `Bearer ${token}` }
+  });
+  return request.then(response => {
+    if (response.data.status === "success") {
+      return callback(null, response.data.data);
+    }
+    return callback(response.data.msg, null);
+  });
+};
+
+/**
+ * This endpoint allows you to fetch account info of a specific customer using the customer_id.
+ * @param {string} token - AccessToken
+ * @param {object} options - {customer, page and limit}
+ * @param {function} callback
+ */
+export const getAccountByCustomer = function(
+  token: string,
+  options:
+    | {
+        customer: string,
+        page: number,
+        limit: number
+      }
+    | {},
+  callback: (error: string | null, result: any) => mixed
+) {
+  const url = `${apiURL}accounts/getByCustomer`;
+  const request = axios({
+    method: "POST",
+    url,
+    data: options,
+    headers: { Authorization: `Bearer ${token}` }
+  });
+  return request.then(response => {
+    if (response.data.status === "success") {
+      return callback(null, response.data.data);
+    }
+    return callback(response.data.msg, null);
+  });
+};
+/**
+ * This endpoint allows you to fetch account info by bank id.
+ * @param {string} token - AccessToken
+ * @param {object} options - {bank, page and limit}
+ * @param {function} callback
+ */
+export const getAccountByBank = function(
+  token: string,
+  options:
+    | {
+        bank: string,
+        page: number,
+        limit: number
+      }
+    | {},
+  callback: (error: string | null, result: any) => mixed
+) {
+  const url = `${apiURL}accounts/getByBank`;
+  const request = axios({
+    method: "POST",
+    url,
+    data: options,
+    headers: { Authorization: `Bearer ${token}` }
+  });
+  return request.then(response => {
+    if (response.data.status === "success") {
+      return callback(null, response.data.data);
+    }
+    return callback(response.data.msg, null);
+  });
+};
+/**
  * endpoint allows you to fetch customer Debt-To-Income using the customer_id.
  * @param {string} token - AccessToken
  * @param {object} options - {customer, page and limit}
@@ -1534,6 +1778,311 @@ export const getCustomersByKey = function(
     return callback(response.data.msg, null);
   });
 };
+/**
+ * endpoint allows you to Create a Link to Accept Payments for Your Customers
+ * @param {string} token - AccessToken
+ * @param {object} options - {amount, name, currency, note, logo, countries, schedule, color}
+ * @param {function} callback
+ */
+export const createCharge = function(
+  token: string,
+  options:
+    | {
+        amount: number,
+        name: string,
+        currency: string,
+        note: string,
+        logo: string,
+        countries: [],
+        schedule: {
+          interval: string,
+          startDate: string,
+          endDate: string
+        },
+        color: string,
+        type: string,
+        account: string,
+        support_email: string,
+        data: boolean,
+        success_url: string,
+        callback_url: string,
+        continue_cta: string
+      }
+    | {},
+  callback: (error: string | null, result: any) => mixed
+) {
+  const url = `${apiURL}pay/link/create`;
+  const request = axios({
+    method: "POST",
+    url,
+    data: options,
+    headers: { Authorization: `Bearer ${token}` }
+  });
+  return request.then(response => {
+    if (response.data.status === "success") {
+      return callback(null, response.data.data);
+    }
+    return callback(response.data.msg, null);
+  });
+};
+/**
+ * endpoint allows you to initiate a direct NIP (instant payment) EFT transfer on your customer’s behalf.
+ * @param {string} token - AccessToken
+ * @param {object} options - {account_to_debit, account_to_credit, amount, name, currency, type, schedule}
+ * @param {function} callback
+ */
+export const initiatePayment = function(
+  token: string,
+  options:
+    | {
+        account_to_debit: string,
+        account_to_credit: string,
+        payments: [],
+        type: string,
+        schedule: {
+          interval: string,
+          startDate: string,
+          endDate: string
+        },
+        amount: number,
+        currency: string
+      }
+    | {},
+  callback: (error: string | null, result: any) => mixed
+) {
+  const url = `${apiURL}pay/initiate`;
+  const request = axios({
+    method: "POST",
+    url,
+    data: options,
+    headers: { Authorization: `Bearer ${token}` }
+  });
+  return request.then(response => {
+    if (response.data.status === "success") {
+      return callback(null, response.data.data);
+    }
+    return callback(response.data.msg, null);
+  });
+};
+/**
+ * endpoint allows you to set up recurring or one time debit for a future date and also set when the debit should stop.
+ * @param {string} token - AccessToken
+ * @param {object} options - {authorization, amount, initialAmount, name, startDate, endDate, interval}
+ * @param {function} callback
+ */
+export const initiateFuturePayment = function(
+  token: string,
+  options:
+    | {
+        authorization: string,
+        amount: number,
+        initialAmount: number,
+        currency: string,
+        startDate: string,
+        endDate: string,
+        interval: string
+      }
+    | {},
+  callback: (error: string | null, result: any) => mixed
+) {
+  const url = `${apiURL}pay/authorization/initiate`;
+  const request = axios({
+    method: "POST",
+    url,
+    data: options,
+    headers: { Authorization: `Bearer ${token}` }
+  });
+  return request.then(response => {
+    if (response.data.status === "success") {
+      return callback(null, response.data.data);
+    }
+    return callback(response.data.msg, null);
+  });
+};
+/**
+ * endpoint allows you to cancel a Payment if you no longer intend to use it to collect payment from the customer.
+ * @param {string} token - AccessToken
+ * @param {object} options - {authorization, customer, link, account}
+ * @param {function} callback
+ */
+export const cancelFuturePayment = function(
+  token: string,
+  options:
+    | {
+        authorization: string,
+        customer: string,
+        link: string,
+        account: string
+      }
+    | {},
+  callback: (error: string | null, result: any) => mixed
+) {
+  const url = `${apiURL}pay/authorization/cancel`;
+  const request = axios({
+    method: "POST",
+    url,
+    data: options,
+    headers: { Authorization: `Bearer ${token}` }
+  });
+  return request.then(response => {
+    if (response.data.status === "success") {
+      return callback(null, response.data.data);
+    }
+    return callback(response.data.msg, null);
+  });
+};
+/**
+ * endpoint allows you to reauthorise a previously cancelled payment.
+ * @param {string} token - AccessToken
+ * @param {object} options - {authorization, customer, link, account}
+ * @param {function} callback
+ */
+export const reauthFuturePayment = function(
+  token: string,
+  options:
+    | {
+        authorization: string,
+        customer: string,
+        link: string,
+        account: string
+      }
+    | {},
+  callback: (error: string | null, result: any) => mixed
+) {
+  const url = `${apiURL}pay/authorization/reauth`;
+  const request = axios({
+    method: "POST",
+    url,
+    data: options,
+    headers: { Authorization: `Bearer ${token}` }
+  });
+  return request.then(response => {
+    if (response.data.status === "success") {
+      return callback(null, response.data.data);
+    }
+    return callback(response.data.msg, null);
+  });
+};
+
+/**
+ * endpoint allows you to list of all your payment authorizations.
+ * @param {string} token - AccessToken
+ * @param {object} options - {page}
+ * @param {function} callback
+ */
+export const listPaymentAuthorizations = function(
+  token: string,
+  options:
+    | {
+        page: number
+      }
+    | {},
+  callback: (error: string | null, result: any) => mixed
+) {
+  const url = `${apiURL}pay/authorization/list`;
+  const request = axios({
+    method: "POST",
+    url,
+    data: options,
+    headers: { Authorization: `Bearer ${token}` }
+  });
+  return request.then(response => {
+    if (response.data.status === "success") {
+      return callback(null, response.data.data);
+    }
+    return callback(response.data.msg, null);
+  });
+};
+
+/**
+ * endpoint allows you to get all payments
+ * @param {string} token - AccessToken
+ * @param {object} options - {payment_id}
+ * @param {function} callback
+ */
+export const getPayments = function(
+  token: string,
+  options:
+    | {
+        payment_id: string
+      }
+    | {},
+  callback: (error: string | null, result: any) => mixed
+) {
+  const url = `${apiURL}pay/get`;
+  const request = axios({
+    method: "POST",
+    url,
+    data: options,
+    headers: { Authorization: `Bearer ${token}` }
+  });
+  return request.then(response => {
+    if (response.data.status === "success") {
+      console.log(response.data.data);
+      return callback(null, response.data.data);
+    }
+    return callback(response.data.msg, null);
+  });
+};
+/**
+ * endpoint allows you to get all payments by id
+ * @param {string} token - AccessToken
+ * @param {object} options - {payment_id}
+ * @param {function} callback
+ */
+export const getPaymentById = function(
+  token: string,
+  options:
+    | {
+        payment_id: string
+      }
+    | {},
+  callback: (error: string | null, result: any) => mixed
+) {
+  const url = `${apiURL}pay/get/Id`;
+  const request = axios({
+    method: "POST",
+    url,
+    data: options,
+    headers: { Authorization: `Bearer ${token}` }
+  });
+  return request.then(response => {
+    if (response.data.status === "success") {
+      return callback(null, response.data.data);
+    }
+    return callback(response.data.msg, null);
+  });
+};
+/**
+ * endpoint allows you to verify whether payment has been processed, or not.
+ * @param {string} token - AccessToken
+ * @param {object} options - {payment_id}
+ * @param {function} callback
+ */
+export const verifyPayment = function(
+  token: string,
+  options:
+    | {
+        payment_id: string
+      }
+    | {},
+  callback: (error: string | null, result: any) => mixed
+) {
+  const url = `${apiURL}pay/verify`;
+  const request = axios({
+    method: "POST",
+    url,
+    data: options,
+    headers: { Authorization: `Bearer ${token}` }
+  });
+  return request.then(response => {
+    if (response.data.status === "success") {
+      console.log(response.data.data);
+      return callback(null, response.data.data);
+    }
+    return callback(response.data.msg, null);
+  });
+};
 
 export default {
   getAuth,
@@ -1590,5 +2139,23 @@ export default {
   getCustomerByIdentity,
   getCustomerDTI,
   getCustomersByKey,
-  getEnhancedBalance
+  getEnhancedBalance,
+  checkBalance,
+  refreshBalance,
+  getTransactionByRecord,
+  refreshTransaction,
+  getEnhancedTransaction,
+  getIncome,
+  getAccountById,
+  getAccountByCustomer,
+  getAccountByBank,
+  createCharge,
+  initiatePayment,
+  initiateFuturePayment,
+  cancelFuturePayment,
+  reauthFuturePayment,
+  listPaymentAuthorizations,
+  getPayments,
+  getPaymentById,
+  verifyPayment
 };

@@ -4,11 +4,13 @@ import * as api from "../src";
 require("dotenv").config();
 
 const token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZGMyZTU1MmM2NDNkODZlZDYyNGQ4YjEiLCJpYXQiOjE1NzkyNjQ5ODN9.R7_qldvGRwcYUj8CBRRsOAwvPJqquQ7kKSWX2kB60pQ"; // TO do - change to public token
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjI5MjJiNTlhZmFiMTA5ODQxMDJlNTIiLCJpYXQiOjE2MDI0MjU5OTV9.YlyMYzYmYJPYBkH2xOsk_X1CW1YUHzfZcqmvZjHsDTg"; // TO do - change to public token
 const id = "5e93c0280346044211aa0a42";
 const record = "5e93c0280346044211aa0a42";
-const account = "5e93c0280346044211aa0a42";
-const customer_id = "5e93c0280346044211aa0a42";
+const account = "5e939074ad26310189448c03";
+const customer_id = "5e9878a850b8312188ad10dc";
+const authorization_id = "602ba395062f875c2a7d433b";
+const payment_id = "5f8501bd3103d912f185a5cd";
 const to = "2020-08-31";
 const from = "2020-04-01";
 const type = "ledger_balance";
@@ -25,7 +27,6 @@ describe("Testing module", () => {
     expect(api).toBeDefined();
   });
 });
-
 describe("Testing getAuth Api", () => {
   test("getAuth get response", async () => {
     const response = await api.getAuth(token, {}, () => {
@@ -49,6 +50,7 @@ describe("Testing getBalance Api", () => {
     const response = await api.getBalances(token, {}, () => {
       return true;
     });
+    console.log(response);
     expect(response).toBe(true);
   });
 });
@@ -581,6 +583,258 @@ describe("Testing getCustomer Api", () => {
     const response = await api.getCustomersByKey(
       token,
       { key: "bvn", value: "22188789177" },
+      () => {
+        return true;
+      }
+    );
+    expect(response).toBeTruthy();
+  });
+});
+describe("Testing getAccountById Api", () => {
+  test("getAccountById", async () => {
+    const response = await api.getAccountById(token, { id: account }, () => {
+      return true;
+    });
+    expect(response).toBeTruthy();
+  });
+});
+describe("Testing getAccountByCustomer Api", () => {
+  test("getAccountByCustomer", async () => {
+    const response = await api.getAccountByCustomer(
+      token,
+      { customer: customer_id },
+      () => {
+        return true;
+      }
+    );
+    expect(response).toBeTruthy();
+  });
+});
+describe("Testing getAccountByBank Api", () => {
+  test("getAccountByBank", async () => {
+    const response = await api.getAccountByBank(token, { bank }, () => {
+      return true;
+    });
+    expect(response).toBeTruthy();
+  });
+});
+describe("Testing checkBalance Api", () => {
+  test("checkBalance", async () => {
+    const response = await api.checkBalance(
+      token,
+      { account_id: account, record_id: record },
+      () => {
+        return true;
+      }
+    );
+    expect(response).toBeTruthy();
+  });
+});
+describe("Testing refreshBalance Api", () => {
+  test("refreshBalance", async () => {
+    const response = await api.refreshBalance(
+      token,
+      { account_id: account, record_id: record },
+      () => {
+        return true;
+      }
+    );
+    expect(response).toBeTruthy();
+  });
+});
+describe("Testing getTransactionByRecord Api", () => {
+  test("getTransactionByRecord", async () => {
+    const response = await api.getTransactionByRecord(
+      token,
+      { record_id: record },
+      () => {
+        return true;
+      }
+    );
+    expect(response).toBeTruthy();
+  });
+});
+describe("Testing refreshTransaction Api", () => {
+  test("refreshTransaction", async () => {
+    const response = await api.refreshTransaction(
+      token,
+      { account_id: account },
+      () => {
+        return true;
+      }
+    );
+    expect(response).toBeTruthy();
+  });
+});
+describe("Testing enhancedTransaction Api", () => {
+  test("enhancedTransaction", async () => {
+    const response = await api.getEnhancedTransaction(
+      token,
+      { account },
+      () => {
+        return true;
+      }
+    );
+    expect(response).toBeTruthy();
+  });
+});
+describe("Testing getIncome Api", () => {
+  test("getIncome", async () => {
+    const response = await api.getIncome(token, {}, () => {
+      return true;
+    });
+    expect(response).toBeTruthy();
+  });
+});
+describe("Testing createCharge Api", () => {
+  test("createCharge", async () => {
+    const response = await api.createCharge(
+      token,
+      {
+        amount: 50000,
+        name: "urch money",
+        currency: "NGN",
+        note: "pay me my money",
+        countries: ["NG"],
+        schedule: {
+          interval: "string",
+          startDate: "string",
+          endDate: "string"
+        },
+        color: "string",
+        type: "one-time",
+        account,
+        support_email: "string",
+        data: false,
+        success_url: "string",
+        callback_url: "string",
+        continue_cta: "string"
+      },
+      () => {
+        return true;
+      }
+    );
+    expect(response).toBeTruthy();
+  });
+});
+
+describe("Testing initiatePayment Api", () => {
+  test("initiatePayment", async () => {
+    const response = await api.initiatePayment(
+      token,
+      {
+        account_to_debit: account,
+        amount: 50000,
+        currency: "NGN"
+      },
+      () => {
+        return true;
+      }
+    );
+    expect(response).toBeTruthy();
+  });
+});
+describe("Testing initiateFuturePayment Api", () => {
+  test("initiateFuturePayment", async () => {
+    const response = await api.initiateFuturePayment(
+      token,
+      {
+        authorization: authorization_id,
+        amount: 10000,
+        initialAmount: 7000,
+        currency: "NGN",
+        startDate: "2021/05/21",
+        endDate: "2021/06/27",
+        interval: "monthly"
+      },
+      () => {
+        return true;
+      }
+    );
+    expect(response).toBeTruthy();
+  });
+});
+describe("Testing cancelFuturePayment Api", () => {
+  test("cancelFuturePayment", async () => {
+    const response = await api.cancelFuturePayment(
+      token,
+      {
+        authorization: authorization_id,
+        customer: customer_id,
+        link: "602ba2c5cf08f006d11df72a"
+      },
+      () => {
+        return true;
+      }
+    );
+    expect(response).toBeTruthy();
+  });
+});
+describe("Testing reauthFuturePayment Api", () => {
+  test("reauthFuturePayment", async () => {
+    const response = await api.reauthFuturePayment(
+      token,
+      {
+        authorization: authorization_id,
+        customer: customer_id,
+        link: "602ba2c5cf08f006d11df72a"
+      },
+      () => {
+        return true;
+      }
+    );
+    expect(response).toBeTruthy();
+  });
+});
+describe("Testing listPaymentAuthorizations Api", () => {
+  test("listPaymentAuthorizations", async () => {
+    const response = await api.listPaymentAuthorizations(
+      token,
+      {
+        page: 1
+      },
+      () => {
+        return true;
+      }
+    );
+    expect(response).toBeTruthy();
+  });
+});
+describe("Testing getPayments Api", () => {
+  test("getPayments", async () => {
+    const response = await api.getPayments(
+      token,
+      {
+        payment_id
+      },
+      () => {
+        return true;
+      }
+    );
+    expect(response).toBeTruthy();
+  });
+});
+describe("Testing getPaymentById Api", () => {
+  test("getPaymentById", async () => {
+    const response = await api.getPaymentById(
+      token,
+      {
+        payment_id
+      },
+      () => {
+        return true;
+      }
+    );
+    expect(response).toBeTruthy();
+  });
+});
+describe("Testing verifyPayment Api", () => {
+  test("verifyPayment", async () => {
+    const response = await api.verifyPayment(
+      token,
+      {
+        payment_id
+      },
       () => {
         return true;
       }
