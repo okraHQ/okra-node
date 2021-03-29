@@ -3,19 +3,18 @@ import * as api from "../src";
 
 require("dotenv").config();
 
-const token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjI5MjJiNTlhZmFiMTA5ODQxMDJlNTIiLCJpYXQiOjE2MDI0MjU5OTV9.YlyMYzYmYJPYBkH2xOsk_X1CW1YUHzfZcqmvZjHsDTg"; // TO do - change to public token
-const id = "5e93c0280346044211aa0a42";
-const record = "5e93c0280346044211aa0a42";
-const account = "5e939074ad26310189448c03";
-const customer_id = "5e9878a850b8312188ad10dc";
-const authorization_id = "602ba395062f875c2a7d433b";
-const payment_id = "5f8501bd3103d912f185a5cd";
+const token = process.env.TOKEN;
+const id = process.env.ID;
+const record = process.env.RECORC_ID;
+const account = process.env.ACCOUNT_ID;
+const customer_id = process.env.CUSTOMER_ID;
+const authorization_id = process.env.AUTHORIZATION_ID;
+const payment_id = process.env.PAYMENT_ID;
 const to = "2020-08-31";
 const from = "2020-04-01";
 const type = "ledger_balance";
 const value = 2000;
-const bank = "5d6fe57a4099cc4b210bbeb6";
+const bank = process.env.BANK_ID;
 const options = { name: "lanre" };
 
 beforeEach(async () => {
