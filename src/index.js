@@ -22,7 +22,7 @@ const reports = new Reports(okraSecret, env);
 async function get() {
   try {
     // const res = await client.getPayAutherizations({customer: '123'})
-    const res = await reports.get({id: '61267e8a70019b9a0f3da1ae'});
+    const res = await reports.get();
     console.log("GOOD", res);
     //const nextpage = await res.nextPage();
     await res.update();

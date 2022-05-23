@@ -1,5 +1,5 @@
-import RequsetWrapper from "./req-wrapper.js";
-import Helpers from "./helpers.js";
+import RequsetWrapper from "./utils/req-wrapper.js";
+import Helpers from "./utils/helpers.js";
 
 class OkraClient {
   constructor() {
