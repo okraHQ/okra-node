@@ -2,7 +2,7 @@ import axios from "axios";
 
 class RequsetWrapper {
 
-  static async post(baseUrl, options, secret) {
+async post(baseUrl, options, secret) {
     return axios({
       method: "POST",
       url: baseUrl,
@@ -11,7 +11,7 @@ class RequsetWrapper {
     });
   }
 
-  static async put(baseUrl, options, secret) {
+async put(baseUrl, options, secret) {
     return axios({
       method: "PUT",
       url: baseUrl,
@@ -20,7 +20,7 @@ class RequsetWrapper {
     });
   }
 
-  static async get(baseUrl, options, secret) {
+async get(baseUrl, options, secret) {
     let urlQueryParams = "?";
     for (const key in options) {
       urlQueryParams = `${urlQueryParams}${key}=${options[key]}&`;
@@ -33,7 +33,7 @@ class RequsetWrapper {
     });
   }
 
-  static async delete(baseUrl, options, secret) {
+async delete(baseUrl, options, secret) {
     return axios({
       method: "DELETE",
       url: baseUrl,
@@ -41,7 +41,7 @@ class RequsetWrapper {
     });
   }
 
-  static async requestHanlder(method, url, options, secret) {
+async requestHanlder(method, url, options, secret) {
     try {
       const request = await this[method.toLowerCase()](url, options, secret);
       const response =

@@ -650,6 +650,17 @@ class Payments extends OkraClient {
   }
 }
 
+class Liabilities extends OkraClient {
+    constructor(apiSecret, env) {
+        super(apiSecret, env);
+        this.apiSecret = apiSecret;
+        this.apiBaseUrl = super.defineEnv(env);
+      }
+    
+    async get(options = {}) {
+        return super.defineFetcher(options, "checkLiabilitiesParams", "POST");
+    }
+}
 export {
   OkraClient,
   Accounts,
@@ -663,5 +674,6 @@ export {
   Transactions,
   Payments,
   Sandbox,
-  Reports
+  Reports,
+  Liabilities,
 };

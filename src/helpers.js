@@ -14,6 +14,7 @@ class Helpers {
     this.walletModel = OkraModels.wallet;
     this.sandboxModel = OkraModels.sandbox;
     this.reportsModel = OkraModels.reports;
+    this.liabilitiesModel = OkraModels.liabilities;
   }
 
   addUrlParams(url, options, defaultUrlValues) {
@@ -295,6 +296,23 @@ class Helpers {
       default:
         throw "Invalid parameters passed";
     }
+  }
+
+  checkLiabilitiesParams(options) {
+    switch (true) {
+        case options.id != undefined:
+          return this.liabilitiesModel.getById;
+        case options.customer_id != undefined:
+            return this.liabilitiesModel.getByCustomer;
+        case options.from != undefined || options.to != undefined:
+            return this.liabilitiesModel.getByDate;
+        case options.page != undefined && options.limit != undefined:
+          return this.liabilitiesModel.fetch;
+        case Object.keys(options).length === 0:
+          return this.liabilitiesModel.fetch;
+        default:
+          throw "Invalid parameters passed";
+      } 
   }
 
   validateOptionalKeys(validDefaultOptions, passedOptions) {

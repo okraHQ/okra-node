@@ -529,6 +529,34 @@ class OkraModels {
       paginationKeys: false
     }
   };
+
+  static liabilities = {
+      process: {
+          path: "liabilities/process",
+          validKeys: { customer_id: ""},
+          paginationKeys: false,
+      },
+      getById: {
+          path: "liabilities/getById",
+          validKeys: {id: ""},
+          paginationKeys: false,
+      },
+      getByCustomer: {
+          path: "liabilities/getByCustomer",
+          validKeys: {customer_id: ""},
+          paginationKeys: true,
+      },
+      fetch: {
+          path: "liabilities/list",
+          validKeys: {},
+          paginationKeys: true,
+      },
+      getByDate: {
+          path: "liabilities/getByDate",
+          validKeys: {from: "", to: ""},
+          paginationKeys: true,        
+    },
+  }
 }
 
 export default OkraModels;
