@@ -73,12 +73,12 @@ const getNextPage = getReports.nextPage();
 * **Auth**: Allows you to get information on extisting authentication. 
 
 **Available options**:
-* Get Auth list - {} or null - https://docs.okra.ng/reference/fetchauths
-* Get Auth by Id - {id: <<string>>} - https://docs.okra.ng/reference/getauthbyid
-* Get Auth by customer id - { customer: <<string>>, from: <<date>>, to: <<date>> } - https://docs.okra.ng/reference/getauthbycustomer
-* Get Auth by date - { from: <<date>>, to: <<date>>, page: <<int>>, limit: <<int>>  } - https://docs.okra.ng/reference/getauthbydate
-* Get Auth by bank - { bank: <<string>> ,page: <<int>> , limit: <<int>> } - https://docs.okra.ng/reference/getauthbybank
-* Get Auth by customer date - { customer: <<string>>, from: <<date>>, to: <<date>>, page: <<int>>, limit: <<int>> } - https://docs.okra.ng/reference/getauthbycustomerdate
+* Get Auth list - `{} or null` - https://docs.okra.ng/reference/fetchauths
+* Get Auth by Id - `{id: <<string>>}` - https://docs.okra.ng/reference/getauthbyid
+* Get Auth by customer id - `{ customer: <<string>>, from: <<date>>, to: <<date>> }` - https://docs.okra.ng/reference/getauthbycustomer
+* Get Auth by date - `{ from: <<date>>, to: <<date>>, page: <<int>>, limit: <<int>> }` - https://docs.okra.ng/reference/getauthbydate
+* Get Auth by bank - `{ bank: <<string>> ,page: <<int>> , limit: <<int>> }` - https://docs.okra.ng/reference/getauthbybank
+* Get Auth by customer date - `{ customer: <<string>>, from: <<date>>, to: <<date>>, page: <<int>>, limit: <<int>> }` - https://docs.okra.ng/reference/getauthbycustomerdate
 
 
 For more information checkout [okra's documentation](https://docs.okra.ng)
