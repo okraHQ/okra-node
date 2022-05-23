@@ -651,15 +651,25 @@ class Payments extends OkraClient {
 }
 
 class Liabilities extends OkraClient {
-    constructor(apiSecret, env) {
-        super(apiSecret, env);
-        this.apiSecret = apiSecret;
-        this.apiBaseUrl = super.defineEnv(env);
-      }
-    
-    async get(options = {}) {
-        return super.defineFetcher(options, "checkLiabilitiesParams", "POST");
-    }
+  constructor(apiSecret, env) {
+    super(apiSecret, env);
+    this.apiSecret = apiSecret;
+    this.apiBaseUrl = super.defineEnv(env);
+  }
+
+  async get(options = {}) {
+    return super.defineFetcher(options, "checkLiabilitiesParams", "POST");
+  }
+
+  async process(options = {}) {
+  const modelOptions = this.helpers.liabilitiesModel.process;
+  return await super.defineAction(
+    options,
+    modelOptions,
+    this.apiSecret,
+    "POST"
+  );
+  }
 }
 export {
   OkraClient,
@@ -675,5 +685,5 @@ export {
   Payments,
   Sandbox,
   Reports,
-  Liabilities,
+  Liabilities
 };
