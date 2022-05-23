@@ -13,9 +13,11 @@ class OkraClient {
   defineEnv(env) {
     switch (true) {
       case env == "production":
-        return "https://api.okra.ng/v2/";
+        return "http://localhost:5000/v2/";
+        //return "https://api.okra.ng/v2/";
       case env == "sandbox":
-        return "https://api.okra.ng/v2/sandbox/";
+        return "http://localhost:5000/v2/sandbox";
+        //return "https://api.okra.ng/v2/sandbox/";
       default:
         throw `${env} is not a valid enviormental variable, please use production or sandbox`;
     }
@@ -282,7 +284,7 @@ class Reports extends OkraClient {
     if (report.report != undefined && report.report.length > 0) {
       const reportId = report.report[0]._id;
       const update = async () => {
-        return this.update({ id: reportId });
+        return this.update({ scheduled_id: reportId });
       };
       const del = async () => {
         return this.delete({ id: reportId });
@@ -662,13 +664,13 @@ class Liabilities extends OkraClient {
   }
 
   async process(options = {}) {
-  const modelOptions = this.helpers.liabilitiesModel.process;
-  return await super.defineAction(
-    options,
-    modelOptions,
-    this.apiSecret,
-    "POST"
-  );
+    const modelOptions = this.helpers.liabilitiesModel.process;
+    return await super.defineAction(
+      options,
+      modelOptions,
+      this.apiSecret,
+      "POST"
+    );
   }
 }
 export {
