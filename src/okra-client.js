@@ -13,11 +13,9 @@ class OkraClient {
   defineEnv(env) {
     switch (true) {
       case env == "production":
-        return "http://localhost:5000/v2/";
-        //return "https://api.okra.ng/v2/";
+        return "https://api.okra.ng/v2/";
       case env == "sandbox":
-        return "http://localhost:5000/v2/sandbox";
-        //return "https://api.okra.ng/v2/sandbox/";
+        return "https://api.okra.ng/v2/sandbox/";
       default:
         throw `${env} is not a valid enviormental variable, please use production or sandbox`;
     }
