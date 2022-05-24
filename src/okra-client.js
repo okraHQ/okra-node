@@ -671,6 +671,47 @@ class Liabilities extends OkraClient {
   );
   }
 }
+
+class Investments extends OkraClient {
+  constructor(apiSecret, env) {
+    super(apiSecret, env);
+    this.apiSecret = apiSecret;
+    this.apiBaseUrl = super.defineEnv(env);
+  } 
+
+  async process(options = {}) {
+    const modelOptions = this.helpers.investmentsModel.process;
+    return await super.defineAction(
+      options,
+      modelOptions,
+      this.apiSecret,
+      "POST"
+    );
+    }
+}
+
+class Insurance extends OkraClient {
+  constructor(apiSecret, env) {
+    super(apiSecret, env);
+    this.apiSecret = apiSecret;
+    this.apiBaseUrl = super.defineEnv(env);
+  } 
+
+  async get(options = {}) {
+    return super.defineFetcher(options, "checkIncomeParams", "POST");
+  }
+
+  async process(options = {}) {
+    const modelOptions = this.helpers.insuranceModel.process;
+    return await super.defineAction(
+      options,
+      modelOptions,
+      this.apiSecret,
+      "POST"
+    );
+    }
+}
+
 export {
   OkraClient,
   Accounts,
@@ -685,5 +726,7 @@ export {
   Payments,
   Sandbox,
   Reports,
-  Liabilities
+  Liabilities,
+  Investments,
+  Insurance
 };

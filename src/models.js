@@ -557,6 +557,32 @@ class OkraModels {
       paginationKeys: true
     }
   };
+
+  static Investments = {
+    process: {
+      path: "assets/investment/process",
+      validKeys: { customer_id: "" },
+      paginationKeys: false
+    }
+  }
+
+  static Insurance = {
+    process: {
+      path: "products/income/process",
+      validKeys: {customer_id: "", bank: "" },
+      paginationKeys: false
+    },
+    getByCustomer: {
+      path: "insurance/getByCustomer",
+      validKeys: { customer_id: "" },
+      paginationKeys: true
+    },
+    fetch: {
+      path: "insurance/list",
+      validKeys: {},
+      paginationKeys: true
+    }
+  }
 }
 
 export default OkraModels;
