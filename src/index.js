@@ -31,7 +31,10 @@ async function get() {
     // console.log("NEXT PAGE", nextpage);
     // const prevpage = await nextpage.prevPage();
     // console.log("PREV PAGE", prevpage);
-    const res = await client.process({ customer_id: '62796b7b6bd39b7ceb8e679c', bank: '5d6fe57a4099cc4b210bbeb2'})
+    const res = await client.process({
+      customer_id: "62796b7b6bd39b7ceb8e679c",
+      bank: "5d6fe57a4099cc4b210bbeb2"
+    });
   } catch (error) {
     console.log("BAD", error);
   }

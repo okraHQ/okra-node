@@ -662,13 +662,13 @@ class Liabilities extends OkraClient {
   }
 
   async process(options = {}) {
-  const modelOptions = this.helpers.liabilitiesModel.process;
-  return await super.defineAction(
-    options,
-    modelOptions,
-    this.apiSecret,
-    "POST"
-  );
+    const modelOptions = this.helpers.liabilitiesModel.process;
+    return await super.defineAction(
+      options,
+      modelOptions,
+      this.apiSecret,
+      "POST"
+    );
   }
 }
 
@@ -677,7 +677,7 @@ class Investments extends OkraClient {
     super(apiSecret, env);
     this.apiSecret = apiSecret;
     this.apiBaseUrl = super.defineEnv(env);
-  } 
+  }
 
   async process(options = {}) {
     const modelOptions = this.helpers.investmentsModel.process;
@@ -687,7 +687,7 @@ class Investments extends OkraClient {
       this.apiSecret,
       "POST"
     );
-    }
+  }
 }
 
 class Insurance extends OkraClient {
@@ -695,10 +695,10 @@ class Insurance extends OkraClient {
     super(apiSecret, env);
     this.apiSecret = apiSecret;
     this.apiBaseUrl = super.defineEnv(env);
-  } 
+  }
 
   async get(options = {}) {
-    return super.defineFetcher(options, "checkIncomeParams", "POST");
+    return super.defineFetcher(options, "checkInsuranceParams", "POST");
   }
 
   async process(options = {}) {
@@ -709,7 +709,7 @@ class Insurance extends OkraClient {
       this.apiSecret,
       "POST"
     );
-    }
+  }
 }
 
 export {
