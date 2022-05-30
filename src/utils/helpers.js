@@ -1,4 +1,4 @@
-import OkraModels from "./models.js";
+import OkraModels from "../models/models.js";
 
 class Helpers {
   constructor() {

@@ -1,5 +1,5 @@
-import RequsetWrapper from "./req-wrapper.js";
-import Helpers from "./helpers.js";
+import RequsetWrapper from "./utils/req-wrapper.js";
+import Helpers from "./utils/helpers.js";
 
 class OkraClient {
   constructor() {
@@ -282,7 +282,7 @@ class Reports extends OkraClient {
     if (report.report != undefined && report.report.length > 0) {
       const reportId = report.report[0]._id;
       const update = async () => {
-        return this.update({ id: reportId });
+        return this.update({ scheduled_id: reportId });
       };
       const del = async () => {
         return this.delete({ id: reportId });
