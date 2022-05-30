@@ -569,7 +569,7 @@ class OkraModels {
   static Insurance = {
     process: {
       path: "insurance/process",
-      validKeys: { customer_id: ""},
+      validKeys: { customer_id: "" },
       paginationKeys: false
     },
     getByCustomer: {
