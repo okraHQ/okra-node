@@ -1,13 +1,14 @@
 {
   "name": "okra-node",
-  "version": "0.1.16",
+  "version": "0.2.0",
   "description": "Okra JS Node Module",
   "license": "MIT",
   "repository": "okraHQ/okra-node",
-  "main": "dist/index.js",
+  "main": "./src/okra-client.js",
+  "type": "module",
   "author": {
     "name": "Okra, Inc.",
-    "email": "dev@okra.ng",
+    "email": "support@okra.ng",
     "url": "https://github.com/okraHQ"
   },
   "files": [
@@ -18,7 +19,6 @@
     "test": "jest",
     "coverage": "npm test -- --coverage",
     "postcoverage": "open-cli coverage/lcov-report/index.html",
-    "lint": "eslint .",
     "flow": "flow check",
     "docs": "documentation readme src --section=API",
     "postdocs": "git add README.md",

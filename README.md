@@ -25,462 +25,75 @@ import * as okra_client from "okra-node";
 ```
 
 ### 3. Implementation
-Okra node exposes a bunch of APIs that might be useful in your application.
 
-* **getAuth**: get all successful bank verification for customer
-  ```node
-    okra_client.getAuth(accessToken, {}, (err, results) => {
-	// Handle err
-    const auths = results.auths;
-    });
-  ```
-* **getTransactions**: get all transactions associated to your bank
-  ```node
-    okra_client.getTransactions(accessToken, {}, (err, results) => {
-	// Handle err
-    const transactions = results.trans;
-    });
-  ```
-* **getBalances**: this returns the real-time balance for each of an Record's accounts
-  ```node
-    okra_client.getBalances(accessToken, {}, (err, results) => {
-	// Handle err
-    const balances = results.balances;
-    });
-  ```
-* **getIdentities**: this returns all the identities of customer related to your company account
-  ```node
-    okra_client.getIdentities(accessToken, {}, (err, results) => {
-	// Handle err
-    const identities = results.identities;
-    });
-  ```
-* **getRecords**: this returns all the records of transaction
-  ```node
-    okra_client.getRecords(accessToken, {}, (err, results) => {
-	// Handle err
-    const records = results.records;
-    });
-  ```
-* **retryRecord**: this re-run a record
-  ```node
-    okra_client.retryRecord(accessToken, {record_id: string, user: string}, (err, results) => {
-	    // Handle err
-    });
-  ```
-* **getAccounts**: this returns all the accounts of customer associated to your company
-  ```node
-    okra_client.getAccounts(accessToken, {}, (err, results) => {
-	    // Handle err
-    const accounts = results.accounts;
-    });
-  ```
-* **getTotalDebitCredits**: this returns the total credit and debits made on a customer account associated to your company.
-  ```node
-    okra_client.getTotalDebitCredits(accessToken, {account:"5e1efdsa842182515cedd066"}, (err, results) => {
-	    // Handle err
-    const total = results.result
-    });
-  ```
-Field | Required | Description
----|---|---
-**account**<br>`String` | yes | Id of the said account.
+Okra Node exposes all the API endpoint that are available in Okra docs (https://docs.okra.ng/reference/). Please find the parameters you can pass to the endpoints in the API refenece mentioned above.
 
-* **getProducts**: this returns all the available products
-  ```node
-    okra_client.getProducts(accessToken, {}, (err, results) => {
-	    // Handle err
-    const product = results.products;
-    });
-  ```
-  
-* **getProductsByRecord**: retrieve either AUTH, BALANCE, TRANSACTIONS, IDENTITY, INCOME of a customer using record Id.
-  ```node
-    okra_client.getProductsByRecord(accessToken, {}, (err, results) => {
-	    // Handle err
-    const product = results;
-    });
-  ```
+### 4. Okra Classes
 
-* **getRecordByMethod**: this returns all the available products
-  ```node
-    okra_client.getRecordByMethod(accessToken, { record: 'record_id', method: 'okra_product' }, (err, results) => {
-	    // Handle err
-    const product = results['okra_product'];
-    });
-  ```
+The Okra Node Client is devided to classes that can be consumed sepratley as it's necessary for you. The classes are inheriting Okra Client class, so you'll need to pass the enviornment and Okra Secret (found here: https://dash.okra.ng/settings/api-keys) to each class you implement.
 
-* **getProductsByCustomer**: to retrieve either AUTH, BALANCE, TRANSACTIONS, IDENTITY, INCOME of a customer using their customer Id.
-  ```node
-    okra_client.getProductsByCustomer(accessToken, {}, (err, results) => {
-	    // Handle err
-    const product = results;
-    });
-  ```
+Each function of the class will intake an options object as argument. The object can contain different parameters that you would like to return, for example, you can pass the object: `{id: "1234567890"}` to `Auth.get()` and it will point that request to the correct endpoint.
 
-* **getBanks**: this returns the list of supported banks
-  ```node
-    okra_client.getBanks((err, results) => {
-	    // Handle err
-    const banks = results.banks;
-    });
-  ```
-* **getBankById**: this returns a specific bank info
-  ```node
-    okra_client.getBankById(bankId,(err, results) => {
-	// Handle err
-    const bank = results;
-    });
-  ```
-* **getCustomers**: this returns an array of customers associated to your company
-  ```node
-    okra_client.getCustomers(accessToken, {},(err, results) => {
-	    // Handle err
-    const customers = results.customers;
-    });
-  ```
-* **mergeIdentities**: Okra offers an api that helps to merge two identical identities into a single identity
-  ```node
-    okra_client.mergeIdentities(accessToken,
-      {
-          final:"5e1efaaa848182515cedd066",
-          initial:"5e20c13ed2356505c26f5a94",
-          options: {}
-      },
-      (err, results) => {
-        // Handle err
-      const mergeResult = results;
-      });
-  ```
-  * **getCustomers**: this returns an array of customers associated to your company
-  ```node
-    okra_client.getCustomers(accessToken, {},(err, results) => {
-	    // Handle err
-    const customers = results.customers;
-    });
-  ```
-  * **getBalanceById**: this Pull real-time balance information with balance id
-  ```node
+#### Examples
 
-      okra_client.getBalanceById(accessToken, {id: "5ee8b9d601ef97629b12aa9a"}, (err, results) => {
-          // Handle err
-    const balances = results.balance;
-    });
-  ```
-   * **getBalanceByCustomer**: this Pull real-time balance information with customer id
-  ```node
+* **list accounts**:
+```
+const accounts = new Accounts(okraSecret, env);
+const getAccounts = accounts.get()
+```
 
-      okra_client.getBalanceByCustomer(accessToken, {customer: "5ee8b9d601ef97629b12aa9a"}, (err, results) => {
-          // Handle err
-      const balances = results.balance;
-    });
-  ```
-   * **getBalanceByOptions**: this Pull real-time balance information with options set in the widget
-  ```node
+* **get account by id**:
 
-      okra_client.getBalanceByOptions(accessToken, {options:{"name": "Lanre"}}, (err, results) => {
-          // Handle err
-      const balances = results.balance;
-    });
-  ```
-   * **getBalanceByDate**: this Pull real-time balance information with range
-  ```node
+```
+const accountId = { id: 'bb11189898kll' }
+const accounts = new Accounts(okraSecret, env);
+const getAccounts = accounts.get(accountId);
+```
 
-      okra_client.getBalanceByDate(accessToken, {to:"2020-06-22", from:"2020-01-01"}, (err, results) => {
-          // Handle err
-      const balances = results.balance;
-    });
-  ```
-  * **getBalanceByCustomerDate**: this Pull real-time balance information with range
-  ```node
+* **check balance**:
+```
+const options = {account_id: "bbb118989kll", record_id: "ccc1144090987"}
+const balances = new Balance(okraSecret, env);
+const checkBalance = balances.check(options)
+```
 
-      okra_client.getBalanceByCustomerDate(accessToken, {to:"2020-06-22", from:"2020-01-01", customer:"5ee8b9d601ef97629b12aa9a"}, (err, results) => {
-          // Handle err
-      const balances = results.balance;
-    });
-  ```
+### 5. Pagination
 
-  * **getTransactionById**: this Pull real-time transaction information with transaction id
-  ```node
-      okra_client.getTransactionById(accessToken {id: "5eeb46a93805adbe80521c62"}, (err, results) => {
-        // Handle err
-     const transactions = results.transaction;
-    });
-  ```
-  * **getTransactionByCustomer**: this Pull real-time transaction information with customer id
-  ```node
-      okra_client.getTransactionByCustomer(accessToken {customer: "5eeb46a93805adbe80521c62"}, (err, results) => {
-        // Handle err
-     const transactions = results.transaction;
-    });
-  ```
- * **getTransactionByOptions**: this Pull real-time transaction information with options set in the widget
-  ```node
-      okra_client.getTransactionByOptions(accessToken options:{"firstname": "Lanre"}, (err, results) => {
-        // Handle err
-     const transactions = results.transaction;
-    });
-  ```
- * **getTransactionByDate**: this Pull real-time transaction information with date range
-  ```node
-      okra_client.getTransactionByDate(accessToken {to: "2020-06-01", from: "2020-01-01"}, (err, results) => {
-        // Handle err
-     const transactions = results.transaction;
-    });
-  ```
- * **getTransactionByCustomerDate**: this Pull real-time transaction information with transaction id
-  ```node
-      okra_client.getTransactionByCustomerDate(accessToken {to: "2020-06-01", from: "2020-01-01", 
-      customer_id: "5eeb46a93805adbe80521c62"}, (err, results) => {
-        // Handle err
-     const transactions = results.transaction;
-    });
-  ```
- * **getAuthById**: this Pull real-time auth information with auth id
-  ```node
-      okra_client.getAuthById(accessToken {id: "5eeb46a93805adbe80521c62"}, (err, results) => {
-        // Handle err
-     const transactions = results.auths;
-    });
-  ```
-  * **getAuthByCustomer**: this Pull real-time auth information with customer id
-  ```node
-      okra_client.getAuthByCustomer(accessToken {customer: "5eeb46a93805adbe80521c62"}, (err, results) => {
-        // Handle err
-     const transactions = results.auths;
-    });
-  ```
- * **getAuthByOptions**: this Pull real-time auth information with options set in the widget
-  ```node
-      okra_client.getAuthByOptions(accessToken options:{"firstname": "Lanre"}, (err, results) => {
-        // Handle err
-     const transactions = results.auths;
-    });
-  ```
- * **getAuthByDate**: this Pull real-time auth information with date range
-  ```node
-      okra_client.getAuthByDate(accessToken {to: "2020-06-01", from: "2020-01-01"}, (err, results) => {
-        // Handle err
-     const transactions = results.auths;
-    });
-  ```
- * **getAuthByCustomerDate**: this Pull real-time auth information with auth id
-  ```node
-      okra_client.getAuthByCustomerDate(accessToken {to: "2020-06-01", from: "2020-01-01", customer: "5eeb46a93805adbe80521c62"}, (err, results) => {
-        // Handle err
-     const transactions = results.auths;
-    });
-  ```
-  * **getIdentityById**: this Pull real-time identity information with identity id
-  ```node
-      okra_client.getIdentityById(accessToken {id: "5eeb46a93805adbe80521c62"}, (err, results) => {
-        // Handle err
-     const transactions = results.identity;
-    });
-  ```
-  * **getIdentityByCustomer**: this Pull real-time identity information with customer id
-  ```node
-      okra_client.getIdentityByCustomer(accessToken {customer: "5eeb46a93805adbe80521c62"}, (err, results) => {
-        // Handle err
-     const transactions = results.identity;
-    });
-  ```
- * **getIdentityByOptions**: this Pull real-time identity information with options set in the widget
-  ```node
-      okra_client.getIdentityByOptions(accessToken options:{"firstname":Lanre""}, (err, results) => {
-        // Handle err
-     const transactions = results.identity;
-    });
-  ```
- * **getIdentityByDate**: this Pull real-time identity information with date range
-  ```node
-      okra_client.getIdentityByDate(accessToken {to: "2020-06-01", from: "2020-01-01"}, (err, results) => {
-        // Handle err
-     const transactions = results.identity;
-    });
-  ```
- * **getIdentityByCustomerDate**: this Pull real-time identity information with identity id
-  ```node
-      okra_client.getIdentityByCustomerDate(accessToken {to: "2020-06-01", from: "2020-01-01", customer: "5eeb46a93805adbe80521c62"}, (err, results) => {
-        // Handle err
-     const transactions = results.identity;
-    });
-  ```
-  * **getIncomeById**: this Pull real-time income information with income id
-  ```node
-      okra_client.getIncomeById(accessToken {id: "5eeb46a93805adbe80521c62"}, (err, results) => {
-        // Handle err
-     const transactions = results.income;
-    });
-  ```
-  * **getIncomeByCustomer**: this Pull real-time income information with customer id
-  ```node
-      okra_client.getIncomeByCustomer(accessToken {customer: "5eeb46a93805adbe80521c62"}, (err, results) => {
-        // Handle err
-     const transactions = results.income;
-    });
-  ```
- * **getIncomeByDate**: this Pull real-time income information with date range
-  ```node
-      okra_client.getIncomeByDate(accessToken {to: "2020-06-01", from: "2020-01-01"}, (err, results) => {
-        // Handle err
-     const transactions = results.income;
-    });
-  ```
- * **getIncomeByCustomerDate**: this Pull real-time income information with income id
-  ```node
-      okra_client.getIncomeByCustomerDate(accessToken {to: "2020-06-01", from: "2020-01-01", customer:"5782t172gdjdbdd"}, (err, results) => {
-        // Handle err
-     const transactions = results.income;
-    });
-  ```
-  * **getICustomerDTI**: this returns the percentage of credits to debits on a connected account.
-  ```node
-      okra_client.getCustomerDTI(accessToken, {customer_id:"5anh890978ddndk39"}, (err, results) => {
-        // Handle err
-      const products = results.products;
-    });
-  ```
-  * **getCustomersByKey**: this returns an array of customers associated to your company by keywords eg name, email
-  ```node
-    okra_client.getCustomersByKey(accessToken, {key: 'name', value: 'akeeb'},(err, results) => {
-        // Handle err
-    const customers = results.customers;
-    });
-  ```
-  * **getCustomersByIdentity**: this fetch a customer by any unique ID associated with the customer.Unique ID includes BVN, NIN, 'drivers_license', national_id, nims, voters_id, rc_number
-  ```node
-    okra_client.getCustomerByIdentity(accessToken, {type:"bvn", value:"38261936382"}, (err, results) => {
-      // Handle err
-    const identities = results.identity;
-    });
-  ```
-  
+If pagination is available, you can call the next and previous page via the `.nextPage()` or `.prevPage()` derivited from the resposne object.
+
+Example:
+
+```
+const reports = new Reports(okraSecret, env);
+
+const getReports = reports.get();
+const getNextPage = getReports.nextPage();
+```
+
+* **Auth**: Allows you to get information on extisting authentication. 
+
+**Available options**:
+* Get Auth list: 
+  * options:`{} or null`
+  * ref: https://docs.okra.ng/reference/fetchauths
+* Get Auth by Id:  
+  * options: `{id: <<string>>}`
+  * ref: https://docs.okra.ng/reference/getauthbyid
+* Get Auth by customer id: 
+  * options: `{ customer: <<string>>, from: <<date>>, to: <<date>> }`
+  * ref: https://docs.okra.ng/reference/getauthbycustomer
+* Get Auth by date: 
+  * options: `{ from: <<date>>, to: <<date>>, page: <<int>>, limit: <<int>> }`
+  * ref: https://docs.okra.ng/reference/getauthbydate
+* Get Auth by bank: 
+  * options: `{ bank: <<string>> ,page: <<int>> , limit: <<int>> }`
+  * ref: https://docs.okra.ng/reference/getauthbybank
+* Get Auth by customer date:
+  * options: `{ customer: <<string>>, from: <<date>>, to: <<date>>, page: <<int>>, limit: <<int>> }`
+  * ref: https://docs.okra.ng/reference/getauthbycustomerdate
 
 
- 
-Field | Required | Description
----|---|---
-**final**<br>`String` | yes | Id of identity to merge into.
-**initial**<br>`String` | yes | Id of identity moved from.
-**options**<br>`Object` | no | other identities information might want to effect.
-
-**Options Schema**
-
-Key | Description
----|---
-**bvn**<br>`Number`| Bank Verification Number of the entity associated with this identity
-**nin**<br>`Number`| NIN of the entity associated with this identity
-**national_id**<br>`Number`| National Id of the entity associated with this identity
-**nims**<br>`String`| NIMs number of the entity associated with this identity
-**rc_number**<br>`String`| Company RC number of the entity associated with this identity
-**voters_id**<br>`String`| Voters Id of the entity associated with this identity
-**marital_status**<br>`String`| Marital Status of the entity associated with this identity
-**gender**<br>`String`| Gender of the entity associated with this identity
-**dob**<br>`Date`| Date of birth of the entity associated with this identity
-**mothers_maiden**<br>`String`| Mother's maiden name of the entity associated with this identity
-
-`accessToken` is a required string to access your account with us. You can find it as client token on the [setting page of the okra dashboard](https://dashboard.okra.ng/settings)
-
-## Data Dictionary
-
-### Auth
-Field | Required | Description
----|---|---
-**id**<br>`ObjectID` | **Yes** | Unique Auth ID (Unique Okra Identifier)
-**validated**<br>`Boolean` | **Yes** | Customer authentication status
-**bank**<br>`ObjectID` | **Yes** | Unique Bank ID (Unique Okra Identifier)
-**customer**<br>`ObjectID` | **Yes** | Unique Customer ID (Unique Okra Identifier)
-**record**<br>`ObjectID` | **Yes** | Unique Record ID (Unique Okra Identifier)
-**owner**<br>`ObjectID` | **Yes** | Unique Company ID (Unique Okra Identifier) (Your Client Token)
-**created_at**<br>`Object` | **Yes** | Date Auth was fetched
-**last_updated**<br>`Object` | **Yes** | Last Date Auth was fetched
-
-### Balance
-Field | Required | Description
----|---|---
-**id**<br>`ObjectID` | **Yes** | Unique Balance ID (Unique Okra Identifier)
-**available_balance**<br>`Integer` | **Yes** | Amount of available funds in account
-**ledger_balance**<br>`Integer` | **Yes** | Closing balance of account
-**currency**<br>`String` | **Yes** | The currency of the account
-**connected**<br>`Boolean` | **Yes** | Customer connection status (Did they choose to connect this account to you)
-**env**<br>`String` | **Yes** | Okra API Env the transaction was pulled from **production** or **production-sandbox**
-**bank**<br>`ObjectID` | **Yes** | Unique Bank ID (Unique Okra Identifier)
-**accounts**<br>`ObjectID` | **Yes** | Unique Account ID (Unique Okra Identifier)
-**customer**<br>`ObjectID` | **Yes** | Unique Customer ID (Unique Okra Identifier)
-**record**<br>`Array of ObjectID` | **Yes** | Unique Record ID (Unique Okra Identifier)
-**created_at**<br>`Object` | **Yes** | Date Balance was fetched
-**last_updated**<br>`Object` | **Yes** | Last Date Balance was fetched
-
-### Identity
-Field | Required | Description
----|---|---
-**id**<br>`ObjectID` | **Yes** | Unique Identifier ID (Unique Okra Identifier)
-**firstname**<br>`String` | **Yes** | Customer First Name
-**middlename**<br>`String` | **Yes** | Customer Middle Name
-**lastname**<br>`String` | **Yes** | Customer Last Name
-**next_of_kins**<br>`Identity Object` | **Yes** | Customer Next of Kins
-**dob**<br>`Date` | **Yes** | Customer Date of Birth
-**verified**<br>`String` | **Yes** | BVN Validation status
-**score**<br>`String` | **Yes** | Unique Okra Score
-**dti**<br>`String` | **Yes** | Customer Debt to Income Score
-**fullname**<br>`String` | **Yes** | Customer Fullname
-**company_name**<br>`String` | **Yes | Company Name if Corporate Identity
-**nin**<br>`String` | **Yes** | Customer NIN Number
-**national_id**<br>`String` | **Yes** | Customer National ID Number
-**drivers_lisence**<br>`String` | **Yes** | Customer Driver's License Number
-**nimc**<br>`String` | **Yes** | Customer National Identity Management Commission (NIMC) Number
-**voters_id**<br>`String` | **Yes** | Customer Voter's ID Number
-**rc_number**<br>`String` | **Yes** | Company's Registered Company Number if Corporate Identity
-**phone**<br>`Array of String` | **Yes** | Customer Phone Number
-**last_login**<br>`String` | **Yes** | Customer Last Login via Okra
-**email**<br>`Array of String` | **Yes** | Customer Email address
-**address**<br>`Array of String` | **Yes** | Customer
-**mothers_maiden**<br>`String` | **Yes** | Customer Mother's Maiden Name
-**photo_ids**<br>`Array of Object` | **Yes** | Customer's photo ID
-**env**<br>`String` | **Yes** | Okra API Env the transaction was pulled from **production** or **production-sandbox**
-**bank**<br>`ObjectID` | **Yes** | Unique Bank ID (Unique Okra Identifier)
-**accounts**<br>`ObjectID` | **Yes** | Unique Account ID (Unique Okra Identifier)
-**customer**<br>`ObjectID` | **Yes** | Unique Customer ID (Unique Okra Identifier)
-**record**<br>`Array of ObjectID` | **Yes** | Unique Record ID (Unique Okra Identifier)
-**created_at**<br>`Object` | **Yes** | Date Balance was fetched
-**last_updated**<br>`Object` | **Yes** | Last Date Balance was fetched
-
-### Transaction
-Field | Required | Description
----|---|---
-**id**<br>`ObjectID` | **Yes** | Unique Transaction ID (Unique Okra Identifier)
-**debit**<br>`Integer` | **No**| Amount deducted from account 
-**credit**<br>`Integer` | **No**| Amount credited to account
-**trans_date**<br>`Date` | **Yes** | Date transaction occurred
-**cleared_date**<br>`Date` | **Yes** | Date transaction cleared at bank
-**unformatted_trans_date**<br>`String` | **Yes** | Date transaction occurred (from bank)
-**unformatted_cleared_date**<br>`String` | **Yes** | Date transaction cleared (from bank)
-**branch**<br>`String` | **No**| Branch transactions occurred
-**ref**<br>`String` | **No**| Bank reference ID (from bank)
-**env**<br>`String` | **Yes** | Okra API Env the transaction was pulled from **production** or **production-sandbox**
-**code**<br>`String` | **No**| Bank Code (from bank)
-**benefactor**<br>`ObjectID` | **No**| Customer ID of sender (within Okra)
-**code**<br>`String` | **No**| Bank Code (from bank)
-**notes**<br>`Object` | **Yes** | Breakdown of Narrative from bank
-**bank**<br>`ObjectID` | **Yes** | Unique Bank ID (Unique Okra Identifier)
-**account**<br>`ObjectID` | **Yes** | Unique Account ID (Unique Okra Identifier)
-**record**<br>`Array of ObjectID` | **Yes** | Unique Record ID (Unique Okra Identifier)
-**created_at**<br>`Object` | **Yes** | Date transactions was fetched
-**last_updated**<br>`Object` | **Yes** | Last Date transactions was fetched
-
-### Notes
-Field | Required | Description
----|---|---
-**desc**<br>`String` | **Yes** | Narrative / Description of transaction (combination of bank and user entered information)
-**topics**<br>`Array of String` | **Yes** | Topics within the desc
-**places**<br>`Array of String` | **Yes** | Places mentioned within the desc
-**people**<br>`Array of String` | **Yes** | People mentioned within the desc
-**actions**<br>`Array of String` | **Yes** | Actions mentioned within the desc
-**subject**<br>`Array of String` | **Yes** | Subject of the desc
-**preposition**<br>`Array of String` | **Yes** | Prepositions within desc to understand intent
-
-> For more information checkout [okra's documentation](https://docs.okra.ng)
+For more information checkout [okra's documentation](https://docs.okra.ng)
 
 ## Contributing
 
