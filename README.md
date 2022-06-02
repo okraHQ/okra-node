@@ -23,6 +23,11 @@ In your `app.js` or any module where the component would be used:
 ```node
 import * as okra_client from "okra-node";
 ```
+or import the class that you need:
+
+```node
+import { Accounts } from "okra-node";
+```
 
 ### 3. Implementation
 
