@@ -42,21 +42,21 @@ Each function of the class will intake an options object as argument. The object
 #### Examples
 
 * **list accounts**:
-```
+```node
 const accounts = new Accounts(okraSecret, env);
 const getAccounts = accounts.get()
 ```
 
 * **get account by id**:
 
-```
+```node
 const accountId = { id: 'bb11189898kll' }
 const accounts = new Accounts(okraSecret, env);
 const getAccounts = accounts.get(accountId);
 ```
 
 * **check balance**:
-```
+```node
 const options = {account_id: "bbb118989kll", record_id: "ccc1144090987"}
 const balances = new Balance(okraSecret, env);
 const checkBalance = balances.check(options)
@@ -68,7 +68,7 @@ If pagination is available, you can call the next and previous page via the `.ne
 
 Example:
 
-```
+```node
 const reports = new Reports(okraSecret, env);
 
 const getReports = reports.get();
